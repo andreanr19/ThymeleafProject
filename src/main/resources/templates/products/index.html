@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Products</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div class="container my-5">
+		<h2>Products</h2>
+
+		<div class="row">
+			<p class="">
+				<a href="/" class="btn btn-primary"> <i class="fas fa-book-open">
+						Menu </i>
+				</a>
+			</p>
+
+			<p class="ml-5">
+				<a href="/products/add" class="btn btn-primary"> <i
+					class="fas fa-user-plus ml-2"> Add new product! </i>
+				</a>
+			</p>
+		</div>
+
+
+		<h3 th:if="${products.iterator().hasNext() == false}">There are
+			no products</h3>
+		<table class="table table-striped table-responsive-md"
+			th:if="${products.iterator().hasNext() == true}">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Subcategory</th>
+					<th>Unit measure</th>
+					<th>Product number</th>
+					<th>Start sell date</th>
+					<th>End sell date</th>
+					<th>Days to manufacture</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="align-items-center" th:each="product : ${products}"
+					th:value="${product}">
+					<td th:text="${product.productid}"></td>
+					<td><a
+						th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"></a>
+					</td>
+					<td><a
+						th:text="${product.unitmeasure1.unitmeasurecode} + ': ' + ${product.unitmeasure1.name}"></a>
+					</td>
+					<td th:text="${product.productnumber}"></td>
+					<td th:text="${product.sellstartdate}"></td>
+					<td th:text="${product.sellenddate}"></td>
+					<td th:text="${product.daystomanufacture}"></td>
+
+					<td><a th:href="@{/products/edit/{id}(id=${product.productid})}">
+							<i class="fas fa-user-edit"></i>
+					</a></td>
+					<td><a th:href="@{/products/delete/{id}(id=${product.productid})}">
+							<i class="fas fa-user-times"></i>
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

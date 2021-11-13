@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Transaction history</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h2>Edit Transaction History</h2>
+    <div>
+        <form class="container my-5" action="#" th:action="@{/transaction-histories/edit/{id}(id=${trh.transactionid})}" th:object="${trh}" method="post">
+            <div>
+                <input type="hidden" th:field="*{transactionid}"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="product"  class="col-form-label">Product</label>
+                <select id="product" th:field="*{product}">
+                    <option
+                            th:each="prod : ${products}"
+                            th:value="${prod.productid}"
+                            th:text="${prod.productid + ': ' + prod.name}"
+                            th:selected="${trh.product==prod}">
+                    </option>
+                </select>
+                <span th:if="${#fields.hasErrors('product')}" th:errors="*{product}" class="text-danger"></span>
+            </div>
+
+          
+           
+            <div class="form-group col-md-6">
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" id="quantity" class="form-control" th:field="*{quantity}" th:value="${trh.quantity}"/>
+                <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualcost">Actual cost</label>
+                <input type="number" name="actualcost" id="actualcost" class="form-control" th:field="*{actualcost}" th:value="${trh.actualcost}"/>
+                <span th:if="${#fields.hasErrors('actualcost')}" th:errors="*{actualcost}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="start-date">Transaction Date</label>
+                <input type="datetime" name="timestamp" id="transaction-date" class="form-control" th:field="*{transactiondate}" th:value="${trh.transactiondate}" disabled/>
+                <span th:if="${#fields.hasErrors('transactiondate')}" th:errors="*{transactiondate}" class="text-danger"></span>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <input type="submit" name="action" class="btn btn-primary" value="Confirm Changes">
+                </div>
+                <div class="col-md-3 mt-3">
+                    <input type="submit" name="action" class="btn btn-secondary" value="Cancel">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

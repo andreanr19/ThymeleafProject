@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transaction History</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h2>Transaction Histories</h2>
+    <div class="row">
+        <p class="mr-5">
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-book-open"> Menu </i>
+            </a>
+        </p>
+        <p>
+            <a href="/transaction-histories/add" class="btn btn-primary">
+                <i class="fas fa-user-plus ml-2"> Add new transaction history! </i>
+            </a>
+        </p>
+    </div>
+
+
+
+    <h3 th:if="${transactionalhistories.iterator().hasNext() == false}">
+        There are no transactional histories
+    </h3>
+    <table class="table table-striped table-responsive-md" th:if="${transactionalhistories.iterator().hasNext() == true}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Actual cost</th>
+            <th>Transaction Date</th>
+            <th>Transaction modified Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="align-items-center" th:each="trh : ${transactionalhistories}" th:value="${trh}">
+            <td th:text="${trh.transactionid}"></td>
+            <td>
+                <a th:text="${trh.product.productid} + ': ' + ${trh.product.name}">
+                </a>
+            </td>
+            <td>
+                <a th:text="${trh.quantity}">
+                </a>
+            </td>
+            <td th:text="${trh.actualcost}"></td>
+           	<td th:text="${trh.transactiondate}"></td>
+           	<td th:text="${trh.modifieddate}"></td>
+            
+            <td>
+                <a th:href="@{/transaction-histories/edit/{id}(id=${trh.transactionid})}">
+                    <i class="fas fa-user-edit"></i>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/transaction-histories/delete/{id}(id=${trh.transactionid})}">
+                    <i class="fas fa-user-times"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
