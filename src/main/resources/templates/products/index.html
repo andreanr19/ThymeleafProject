@@ -50,6 +50,7 @@
 					<th>Days to manufacture</th>
 					<th>Edit</th>
 					<th>Delete</th>
+					<th>Information</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -71,6 +72,9 @@
 							<i class="fas fa-user-edit"></i>
 					</a></td>
 					<td><a th:href="@{/products/delete/{id}(id=${product.productid})}">
+							<i class="fas fa-user-times"></i>
+					</a></td>
+					<td><a th:href="@{/products/{id}(id=${product.productid})}">
 							<i class="fas fa-user-times"></i>
 					</a></td>
 				</tr>

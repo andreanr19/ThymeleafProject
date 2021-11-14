@@ -34,10 +34,7 @@
         <h5>Product number</h5>
         <p th:text="${product.productnumber}"></p>
     </div>
-    <div>
-        <h5>Product category</h5>
-        <a th:text="${product.productsubcategory.productcategory.productcategoryid} + ': ' + ${product.productsubcategory.productcategory.name}"></a>
-    </div>
+  
      <div>
         <h5>Product subcategory</h5>
         <a th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"></a>

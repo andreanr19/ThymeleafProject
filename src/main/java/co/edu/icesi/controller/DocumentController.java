@@ -65,4 +65,26 @@ public class DocumentController {
 		}
 		return "redirec:/documents";
 	}
+	@GetMapping("/add")
+	public String addDocument(Model model) {
+		model.addAttribute("doc", new Document());
+		model.addAttribute("products", productService.findAll());
+
+		return "/documents/add";
+	}
+
+	@PostMapping("/add")
+	public String addDocumentPost(@ModelAttribute("doc") @Validated(Add.class)Document doc,
+			BindingResult result, @RequestParam(value = "action", required = true) String action, Model model) {
+
+		if (!action.equals("Cancel")) {
+			if (result.hasErrors()) {
+				model.addAttribute("products", productService.findAll());
+				return "/documents/add";
+			}
+//			doc.setProduct(doc.getProduct());
+//			documentService.saveCorrect(doc, doc.getProduct().getProductid());
+		}
+		return "redirect:/transaction-histories";
+	}
 }
