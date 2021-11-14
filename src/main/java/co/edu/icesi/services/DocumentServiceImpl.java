@@ -51,26 +51,22 @@ public class DocumentServiceImpl implements DocumentService {
 			throw new IllegalArgumentException("Invalid argument");
 
 		} else {
+			document.setProduct(product.get());
 			document = documentRepository.save(document);
+
 			ProductdocumentPK pdk = new ProductdocumentPK();
 			Productdocument pd = new Productdocument();
 			pdk.setDocumentnode(document.getDocumentnode());
 			pdk.setProductid(product.get().getProductid());
 			pd.setId(pdk);
 			pd.setDocument(document);
-			System.out.println(document.getDocumentnode());
 			pd.setProduct(product.get());
-			System.out.println("jdisjfoisjd");
-
-			System.out.println(document.getDocumentnode());
 			long time = System.currentTimeMillis();
 			Timestamp actualdate = new Timestamp(time);
 			pd.setModifieddate(actualdate);
-			System.out.println(pd.getModifieddate());
+//			document.addProductdocument(pd);
+//			product.get().addProductdocument(pd);
 			productdocumentRepository.save(pd);
-//			productdocument.get().setDocument(document);
-//			product.get().addProductdocument(productdocument.get());
-//			productdocument.get().setProduct(product.get());
 
 		}
 	}
@@ -169,27 +165,16 @@ public class DocumentServiceImpl implements DocumentService {
 						.setProduct(product.get());
 				document = documentRepository.save(docentity);
 
-//				Productdocument pd = new Productdocument();
-//				pdk.setDocumentnode(document.getDocumentnode());
-//				pdk.setProductid(product.get().getProductid());
-//				pd.setId(pdk);
-//				pd.setDocument(document);
-//				System.out.println(document.getDocumentnode());
-//				pd.setProduct(product.get());
-//				System.out.println("jdisjfoisjd");
-//			
-//				System.out.println(document.getDocumentnode());
-//				long time = System.currentTimeMillis();
-//				Timestamp actualdate = new Timestamp(time);
-//				pd.setModifieddate(actualdate);
-//				System.out.println(pd.getModifieddate());
-//				productdocumentRepository.save(pd);
-
-//				productdocument.get().setDocument(docentity);
-//				productdocument.get().setProduct(product.get());
-//				productdocument.get().getProduct().addProductdocument(productdocument.get());
-//
-//				documentRepository.save(docentity);
+				ProductdocumentPK pdk = new ProductdocumentPK();
+				Productdocument pd = new Productdocument();
+				pdk.setDocumentnode(docentity.getDocumentnode());
+				pdk.setProductid(product.get().getProductid());
+				pd.setId(pdk);
+				pd.setDocument(docentity);
+				pd.setProduct(product.get());
+//				document.addProductdocument(pd);
+//				product.get().addProductdocument(pd);
+				productdocumentRepository.save(pd);
 
 			}
 		}

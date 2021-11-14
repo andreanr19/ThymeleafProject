@@ -57,11 +57,11 @@ public class DocumentController {
 
 			}
 
-			doc.getProductdocuments().get(doc.getProductdocuments().size() - 1)
-					.setProduct(doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct());
-
-			documentService.editCorrect(doc,
-					doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct().getProductid());
+//			doc.getProductdocuments().get(doc.getProductdocuments().size() - 1)
+//					.setProduct(doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct());
+//
+//			documentService.editCorrect(doc,
+//					doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct().getProductid());
 		}
 		return "redirec:/documents";
 	}
@@ -82,9 +82,9 @@ public class DocumentController {
 				model.addAttribute("products", productService.findAll());
 				return "/documents/add";
 			}
-//			doc.setProduct(doc.getProduct());
-//			documentService.saveCorrect(doc, doc.getProduct().getProductid());
+			doc.setProduct(doc.getProduct());
+			documentService.saveCorrect(doc, doc.getProduct().getProductid());
 		}
-		return "redirect:/transaction-histories";
+		return "redirect:/documents";
 	}
 }

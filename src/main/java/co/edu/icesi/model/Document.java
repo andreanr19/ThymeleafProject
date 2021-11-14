@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 /**
  * The persistent class for the document database table.
@@ -49,6 +50,9 @@ public class Document implements Serializable {
 	private Integer status;
 
 	private String title;
+	
+	@Transient
+	private Product product;
 
 	// bi-directional many-to-one association to Productdocument
 	@OneToMany(mappedBy = "document")
@@ -183,4 +187,11 @@ public class Document implements Serializable {
 		this.title = title;
 	}
 
+	public Product getProduct() {
+		return this.product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 }
