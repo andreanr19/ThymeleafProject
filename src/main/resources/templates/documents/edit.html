@@ -24,18 +24,18 @@
             <div>
                 <input type="hidden" th:field="*{documentnode}"/>
             </div>
-         <!--   <div class="form-group col-md-6">
+          <div class="form-group col-md-6">
                 <label for="product"  class="col-form-label">Product</label>
                 <select id="product" th:field="*{product}">
                     <option
                             th:each="prod : ${products}"
                             th:value="${prod.productid}"
                             th:text="${prod.productid + ': ' + prod.name}"
-                            th:selected="${trh.product==prod}">
+                            th:selected="${doc.product==prod}">
                     </option>
                 </select>
                 <span th:if="${#fields.hasErrors('product')}" th:errors="*{product}" class="text-danger"></span>
-            </div>  --> 
+            </div>  
             <div class="form-group col-md-6">
                 <label for="file-name">File name</label>
                 <input type="text" name="filename" id="filename" class="form-control" th:field="*{filename}" th:value="${doc.filename}"/>

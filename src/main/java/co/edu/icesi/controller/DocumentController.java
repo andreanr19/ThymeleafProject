@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import co.edu.icesi.model.Add;
 import co.edu.icesi.model.Document;
+import co.edu.icesi.model.Product;
 import co.edu.icesi.services.DocumentService;
 import co.edu.icesi.services.ProductService;
 import co.edu.icesi.services.ProductdocumentService;
@@ -37,6 +38,7 @@ public class DocumentController {
 	@GetMapping("")
 	public String documentIndex(Model model) {
 		model.addAttribute("documents", documentService.findAll());
+		
 		return "documents/index";
 	}
 
@@ -54,16 +56,13 @@ public class DocumentController {
 		if (!action.equals("Cancel")) {
 			if (result.hasErrors()) {
 				model.addAttribute("products", productService.findAll());
-
+				return "documents/edit";
 			}
 
-//			doc.getProductdocuments().get(doc.getProductdocuments().size() - 1)
-//					.setProduct(doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct());
-//
-//			documentService.editCorrect(doc,
-//					doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct().getProductid());
+			doc.setProduct(doc.getProduct());
+			documentService.editCorrect(doc, doc.getProduct().getProductid());
 		}
-		return "redirec:/documents";
+		return "redirect:/documents";
 	}
 	@GetMapping("/add")
 	public String addDocument(Model model) {
@@ -87,4 +86,14 @@ public class DocumentController {
 		}
 		return "redirect:/documents";
 	}
+
+	@GetMapping("/{id}")
+	public String getProduct(Model model, @PathVariable("id") long id) {
+		Document document = documentService.findById(id).get();
+
+		model.addAttribute("document", document);
+
+		return "documents/information";
+	}
+
 }

@@ -41,21 +41,22 @@
         <thead>
         <tr>
             <th>Id</th>
-          <!--    <th>Product</th>-->
+          <!-- 	<th>Product</th> -->
             <th>File name</th>
             <th>File extension</th>
             <th>Modified Date</th>
             <th>Edit</th>
             <th>Delete</th>
+            <th>Information</th>
         </tr>
         </thead>
         <tbody>
         <tr class="align-items-center" th:each="doc : ${documents}" th:value="${doc}">
             <td th:text="${doc.documentnode}"></td>
-           <!-- <td>
-            <a th:text="${trh.product.productid} + ': ' + ${trh.product.name}">
+      <!--  <td>
+                <a th:text="${doc.product.productid} + ': ' + ${doc.product.name}">
                 </a>
-            </td> -->
+            </td> --> 
             <td>
                 <a th:text="${doc.filename}">
                 </a>
@@ -73,6 +74,9 @@
                     <i class="fas fa-user-times"></i>
                 </a>
             </td>
+            <td><a th:href="@{/documents/{id}(id=${doc.documentnode})}">
+							<i class="fas fa-user-times"></i>
+					</a></td>
         </tr>
         </tbody>
     </table>

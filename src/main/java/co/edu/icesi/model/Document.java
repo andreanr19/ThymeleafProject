@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the document database table.
@@ -33,8 +35,12 @@ public class Document implements Serializable {
 
 	private String documentsummary;
 
+	@NotNull(groups=Add.class, message="file extension shouldn't be empty")
+	@Size(min=3, groups= Add.class)
 	private String fileextension;
 
+	@NotNull(groups=Add.class, message="file name shouldn't be empty")
+	@Size(min=4, groups= Add.class)
 	private String filename;
 
 	private String folderflag;

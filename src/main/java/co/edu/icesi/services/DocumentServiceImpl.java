@@ -61,9 +61,9 @@ public class DocumentServiceImpl implements DocumentService {
 			pd.setId(pdk);
 			pd.setDocument(document);
 			pd.setProduct(product.get());
-			long time = System.currentTimeMillis();
-			Timestamp actualdate = new Timestamp(time);
-			pd.setModifieddate(actualdate);
+			//long time = System.currentTimeMillis();
+			//Timestamp actualdate = new Timestamp(time);
+			//pd.setModifieddate(actualdate);
 //			document.addProductdocument(pd);
 //			product.get().addProductdocument(pd);
 			productdocumentRepository.save(pd);
@@ -160,11 +160,12 @@ public class DocumentServiceImpl implements DocumentService {
 				docentity.setFilename(document.getFilename());
 				long time = System.currentTimeMillis();
 				Timestamp actualdate = new Timestamp(time);
-				docentity.setModifieddate(actualdate);
+				
 				docentity.getProductdocuments().get(docentity.getProductdocuments().size() - 1)
 						.setProduct(product.get());
-				document = documentRepository.save(docentity);
-
+				docentity = documentRepository.save(docentity);
+				docentity.setModifieddate(actualdate);
+				System.out.println(docentity.getModifieddate());
 				ProductdocumentPK pdk = new ProductdocumentPK();
 				Productdocument pd = new Productdocument();
 				pdk.setDocumentnode(docentity.getDocumentnode());

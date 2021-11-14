@@ -164,29 +164,22 @@ public class Taller1PruebasApplication {
 		Document d1 = new Document();
 		d1.setFilename("Andrea!!");
 		d1.setFileextension("Morgan!");
-		try {
-			date1 = df.parse("23/09/2020");
-			d1.setModifieddate(new Timestamp(date1.getTime()));
-			ds.saveCorrect(d1, product1.getProductid());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		//Init businessentity
-		BusinessEntityService be =c.getBean(BusinessEntityServiceImpl.class);
-		Businessentity b1= new Businessentity();
+		ds.saveCorrect(d1, product1.getProductid());
+
+		// Init businessentity
+		BusinessEntityService be = c.getBean(BusinessEntityServiceImpl.class);
+		Businessentity b1 = new Businessentity();
 		be.save(b1);
-		
-		//init vendor
-		VendorService vs =c.getBean(VendorServiceImpl.class);
+
+		// init vendor
+		VendorService vs = c.getBean(VendorServiceImpl.class);
 		Vendor v1 = new Vendor();
 		v1.setBusinessentityid(b1.getBusinessentityid());
 		vs.save(v1);
-		
-		//Init Product Vendor
+
+		// Init Product Vendor
 		ProductVendorService pvs = c.getBean(ProductVendorServiceImpl.class);
-		Productvendor pv1= new Productvendor();
+		Productvendor pv1 = new Productvendor();
 		pv1.setMaxorderqty(1000);
 		pv1.setMinorderqty(500);
 		pv1.setStandardprice(new BigDecimal("1000"));
