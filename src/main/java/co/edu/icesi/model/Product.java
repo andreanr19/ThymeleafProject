@@ -43,6 +43,7 @@ public class Product implements Serializable {
 
 	private String color;
 
+	@NotNull(groups=Add.class)
 	@Min(value = 1, message = "days to manufacture should be greather than 0", groups = Add.class)
 	private Integer daystomanufacture;
 
@@ -60,6 +61,7 @@ public class Product implements Serializable {
 
 	private String productline;
 
+	@NotNull(groups=Add.class)
 	@Min(value = 1, message = "product number should be greather than 0", groups = Add.class)
 	private String productnumber;
 

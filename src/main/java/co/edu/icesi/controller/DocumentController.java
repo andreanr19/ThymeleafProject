@@ -3,9 +3,17 @@ package co.edu.icesi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import co.edu.icesi.model.Add;
+import co.edu.icesi.model.Document;
 import co.edu.icesi.services.DocumentService;
 import co.edu.icesi.services.ProductService;
 import co.edu.icesi.services.ProductdocumentService;
@@ -17,18 +25,44 @@ public class DocumentController {
 	private DocumentService documentService;
 	private ProductService productService;
 	private ProductdocumentService productdocumentService;
+
 	@Autowired
-	public DocumentController(DocumentService documentService, ProductService productService, ProductdocumentService productdocumentService) {
+	public DocumentController(DocumentService documentService, ProductService productService,
+			ProductdocumentService productdocumentService) {
 		this.documentService = documentService;
 		this.productService = productService;
-		this.productdocumentService= productdocumentService;
+		this.productdocumentService = productdocumentService;
 	}
-	
+
 	@GetMapping("")
 	public String documentIndex(Model model) {
-		model.addAttribute("documents",documentService.findAll());
+		model.addAttribute("documents", documentService.findAll());
 		return "documents/index";
 	}
-	
-	
+
+	@GetMapping("/edit/{id}")
+	public String editDocument(Model model, @PathVariable("id") long id) {
+		model.addAttribute("doc", documentService.findById(id).get());
+		model.addAttribute("products", productService.findAll());
+		return "documents/edit";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String postEditDocument(@ModelAttribute("doc") @Validated(Add.class) Document doc, BindingResult result,
+			Model model, @PathVariable("id") long id, @RequestParam(value = "action", required = true) String action) {
+
+		if (!action.equals("Cancel")) {
+			if (result.hasErrors()) {
+				model.addAttribute("products", productService.findAll());
+
+			}
+
+			doc.getProductdocuments().get(doc.getProductdocuments().size() - 1)
+					.setProduct(doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct());
+
+			documentService.editCorrect(doc,
+					doc.getProductdocuments().get(doc.getProductdocuments().size() - 1).getProduct().getProductid());
+		}
+		return "redirec:/documents";
+	}
 }

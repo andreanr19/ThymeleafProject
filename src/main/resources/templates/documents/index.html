@@ -41,7 +41,7 @@
         <thead>
         <tr>
             <th>Id</th>
-            <th>Product</th>
+          <!--    <th>Product</th>-->
             <th>File name</th>
             <th>File extension</th>
             <th>Modified Date</th>
@@ -52,25 +52,24 @@
         <tbody>
         <tr class="align-items-center" th:each="doc : ${documents}" th:value="${doc}">
             <td th:text="${doc.documentnode}"></td>
+           <!-- <td>
+            <a th:text="${trh.product.productid} + ': ' + ${trh.product.name}">
+                </a>
+            </td> -->
             <td>
-                <a th:text="${trh.product.productid} + ': ' + ${trh.product.name}">
+                <a th:text="${doc.filename}">
                 </a>
             </td>
-            <td>
-                <a th:text="${trh.quantity}">
-                </a>
-            </td>
-            <td th:text="${trh.actualcost}"></td>
-           	<td th:text="${trh.transactiondate}"></td>
-           	<td th:text="${trh.modifieddate}"></td>
+            <td th:text="${doc.fileextension}"></td>
+           	<td th:text="${doc.modifieddate}"></td>
             
             <td>
-                <a th:href="@{/transaction-histories/edit/{id}(id=${trh.transactionid})}">
+                <a th:href="@{/documents/edit/{id}(id=${doc.documentnode})}">
                     <i class="fas fa-user-edit"></i>
                 </a>
             </td>
             <td>
-                <a th:href="@{/transaction-histories/delete/{id}(id=${trh.transactionid})}">
+                <a th:href="@{/documents/delete/{id}(id=${doc.documentnode})}">
                     <i class="fas fa-user-times"></i>
                 </a>
             </td>

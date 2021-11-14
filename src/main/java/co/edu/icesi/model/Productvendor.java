@@ -38,7 +38,7 @@ public class Productvendor implements Serializable {
 
 	private BigDecimal standardprice;
 
-	private String unitmeasurecode;
+	private long unitmeasurecode;
 
 	// bi-directional many-to-one association to Vendor
 	@ManyToOne
@@ -84,7 +84,7 @@ public class Productvendor implements Serializable {
 		return this.standardprice;
 	}
 
-	public String getUnitmeasurecode() {
+	public long getUnitmeasurecode() {
 		return this.unitmeasurecode;
 	}
 
@@ -128,7 +128,7 @@ public class Productvendor implements Serializable {
 		this.standardprice = standardprice;
 	}
 
-	public void setUnitmeasurecode(String unitmeasurecode) {
+	public void setUnitmeasurecode(long unitmeasurecode) {
 		this.unitmeasurecode = unitmeasurecode;
 	}
 

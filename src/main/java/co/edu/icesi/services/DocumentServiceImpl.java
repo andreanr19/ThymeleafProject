@@ -51,7 +51,7 @@ public class DocumentServiceImpl implements DocumentService {
 			throw new IllegalArgumentException("Invalid argument");
 
 		} else {
-			document =documentRepository.save(document);
+			document = documentRepository.save(document);
 			ProductdocumentPK pdk = new ProductdocumentPK();
 			Productdocument pd = new Productdocument();
 			pdk.setDocumentnode(document.getDocumentnode());
@@ -61,7 +61,7 @@ public class DocumentServiceImpl implements DocumentService {
 			System.out.println(document.getDocumentnode());
 			pd.setProduct(product.get());
 			System.out.println("jdisjfoisjd");
-		
+
 			System.out.println(document.getDocumentnode());
 			long time = System.currentTimeMillis();
 			Timestamp actualdate = new Timestamp(time);
@@ -142,9 +142,8 @@ public class DocumentServiceImpl implements DocumentService {
 		save(d);
 	}
 
-	public void editCorrect(Document document, Integer productId, ProductdocumentPK productdocumentpk) {
+	public void editCorrect(Document document, Integer productId) {
 		Optional<Product> product = productRepository.findById(productId);
-		Optional<Productdocument> productdocument = productdocumentRepository.findById(productdocumentpk);
 
 		if (document == null) {
 			throw new RuntimeException();
@@ -156,9 +155,6 @@ public class DocumentServiceImpl implements DocumentService {
 			} else if ((document.getFileextension().length() < 3)) {
 				throw new IllegalArgumentException("Invalid argument");
 
-			} else if (productdocument.isEmpty()) {
-				throw new RuntimeException();
-
 			} else if (d.isEmpty()) {
 				throw new RuntimeException();
 			} else {
@@ -166,11 +162,34 @@ public class DocumentServiceImpl implements DocumentService {
 
 				docentity.setFileextension(document.getFileextension());
 				docentity.setFilename(document.getFilename());
-				productdocument.get().setDocument(docentity);
-				productdocument.get().setProduct(product.get());
-				productdocument.get().getProduct().addProductdocument(productdocument.get());
+				long time = System.currentTimeMillis();
+				Timestamp actualdate = new Timestamp(time);
+				docentity.setModifieddate(actualdate);
+				docentity.getProductdocuments().get(docentity.getProductdocuments().size() - 1)
+						.setProduct(product.get());
+				document = documentRepository.save(docentity);
 
-				documentRepository.save(docentity);
+//				Productdocument pd = new Productdocument();
+//				pdk.setDocumentnode(document.getDocumentnode());
+//				pdk.setProductid(product.get().getProductid());
+//				pd.setId(pdk);
+//				pd.setDocument(document);
+//				System.out.println(document.getDocumentnode());
+//				pd.setProduct(product.get());
+//				System.out.println("jdisjfoisjd");
+//			
+//				System.out.println(document.getDocumentnode());
+//				long time = System.currentTimeMillis();
+//				Timestamp actualdate = new Timestamp(time);
+//				pd.setModifieddate(actualdate);
+//				System.out.println(pd.getModifieddate());
+//				productdocumentRepository.save(pd);
+
+//				productdocument.get().setDocument(docentity);
+//				productdocument.get().setProduct(product.get());
+//				productdocument.get().getProduct().addProductdocument(productdocument.get());
+//
+//				documentRepository.save(docentity);
 
 			}
 		}

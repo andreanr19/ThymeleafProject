@@ -110,7 +110,6 @@ public class Taller1PruebasApplication {
 
 		product1.setClass_("Bus");
 		product1.setName("Bus");
-		product1.setColor("Red");
 		product1.setProductnumber("2");
 		product1.setDaystomanufacture(4);
 
