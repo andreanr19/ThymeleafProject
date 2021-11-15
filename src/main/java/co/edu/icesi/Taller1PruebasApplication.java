@@ -198,10 +198,10 @@ public class Taller1PruebasApplication {
 		pv1.setMinorderqty(500);
 		pv1.setStandardprice(new BigDecimal("1000"));
 		pvs.save(pv1, um1.getUnitmeasurecode(), product1.getProductid(), v1.getBusinessentityid());
-		
-		Iterable<Productvendor> prv= pvs.findAll();
+
+		Iterable<Productvendor> prv = pvs.findAll();
 		System.out.println(prv.iterator().hasNext());
-		
-				}
+
+	}
 
 }

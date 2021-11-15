@@ -6,9 +6,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 import co.edu.icesi.security.LoggingAccessDeniedHandler;
 import co.edu.icesi.users.*;
-
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -40,47 +40,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.authorizeRequests()
+				// .antMatchers("/**").permitAll()
+				.antMatchers("/login/**").permitAll().antMatchers("/logout/**").permitAll()
+				// products
+				.antMatchers("/products*").permitAll().antMatchers("/products/add/**")
+				.hasRole(Usertype.ADMINISTRATOR.toString()).antMatchers("/products/edit/**")
+				.hasRole(Usertype.ADMINISTRATOR.toString())
+				// product-vendors
+				.antMatchers("/product-vendors*").permitAll().antMatchers("/product-vendors/add/**")
+				.hasRole(Usertype.ADMINISTRATOR.toString()).antMatchers("/product-vendors/edit/**")
+				.hasRole(Usertype.ADMINISTRATOR.toString())
+				// transaction-histories
+				.antMatchers("/transaction-histories*").permitAll().antMatchers("/transaction-histories/add/**")
+				.hasRole(Usertype.OPERATOR.toString()).antMatchers("/transaction-histories/edit/**")
+				.hasRole(Usertype.OPERATOR.toString())
+				// documents
+				.antMatchers("/documents*").permitAll().antMatchers("/documents/info/**").permitAll()
+				.antMatchers("/documents/add/**").hasRole(Usertype.OPERATOR.toString())
+				.antMatchers("/documents/edit/**").hasRole(Usertype.OPERATOR.toString()).antMatchers("/**")
+				.authenticated().anyRequest().permitAll().and().formLogin().loginPage("/login").defaultSuccessUrl("/")
+				.failureUrl("/login?error").and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll()
+				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
-//		httpSecurity.authorizeRequests().antMatchers("/secure/**").authenticated().anyRequest().authenticated().and()
-//				.formLogin().loginPage("/login").permitAll().and().authorizeRequests().antMatchers("/users/**").hasRole(UserType.ADMIN.toString()).anyRequest().authenticated();
-		/*
-		 * .and().logout().invalidateHttpSession(true).clearAuthentication(true)
-		 * .logoutRequestMatcher(new
-		 * AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-		 * .permitAll().and().exceptionHandling().accessDeniedHandler(
-		 * accessDeniedHandler)
-		 */
-		
-//		httpSecurity//.userDetailsService(myCustomUserDetailsService)
-//		// se deshabilita para que funcionen las peticiones a los rest controllers, es mala practica deshabilitarlo, corregirlo de otra manera
-////		.authorizeRequests().anyRequest().authenticated().and()
-//		.formLogin()
-//		.loginPage("/login").permitAll()
-//		.and().authorizeRequests()
-//		.antMatchers("/users/**")
-//		.hasRole(Usertype.ADMINISTRATOR.toString()).antMatchers("/apps/**").hasRole(Usertype.OPERATOR.toString()).anyRequest().authenticated().and()
-//		.httpBasic().and().logout().invalidateHttpSession(true)
-//		.clearAuthentication(true)
-//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//		.logoutSuccessUrl("/login?logout").permitAll().and().exceptionHandling()
-//		.accessDeniedHandler(accessDeniedHandler);
-		
-		httpSecurity.
-		authorizeRequests()
-			//.antMatchers("/**").permitAll()
-			.antMatchers("/login/**").permitAll()
-			.antMatchers("/logout/**").permitAll().and()
-			.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/")
-			.failureUrl("/login?error")
-			.and()
-		.logout()
-			.logoutUrl("/logout")
-			.logoutSuccessUrl("/login")
-			.permitAll()
-			.and()
-		.exceptionHandling()
-			.accessDeniedHandler(accessDeniedHandler);
+//		.and().logout()
+//		.invalidateHttpSession(true).clearAuthentication(true)
+//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
+//		.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+
 	}
 }
