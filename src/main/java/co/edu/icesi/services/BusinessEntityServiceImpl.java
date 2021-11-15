@@ -17,7 +17,10 @@ public class BusinessEntityServiceImpl implements BusinessEntityService {
 	public void save(Businessentity be) {
 		bussinessentityrepository.save(be);
 	}
-	
+
+	public Iterable<Businessentity> findAll(){
+		return bussinessentityrepository.findAll();
+	}
 	
 	
 }

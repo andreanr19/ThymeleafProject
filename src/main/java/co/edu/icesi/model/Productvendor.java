@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -19,9 +21,25 @@ import javax.persistence.NamedQuery;
 public class Productvendor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private ProductvendorPK id;
+//	@EmbeddedId
+//	private ProductvendorPK id;
+	
+	@Id
+	private Integer id;
+	@Column(insertable=false, updatable=false)
+	private Integer productid;
 
+	@Column(insertable=false, updatable=false)
+	private Integer businessentityid;
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	private Integer averageleadtime;
 
 	private BigDecimal lastreceiptcost;
@@ -51,10 +69,10 @@ public class Productvendor implements Serializable {
 	public Integer getAverageleadtime() {
 		return this.averageleadtime;
 	}
-
-	public ProductvendorPK getId() {
-		return this.id;
-	}
+//
+//	public ProductvendorPK getId() {
+//		return this.id;
+//	}
 
 	public BigDecimal getLastreceiptcost() {
 		return this.lastreceiptcost;
@@ -96,9 +114,9 @@ public class Productvendor implements Serializable {
 		this.averageleadtime = averageleadtime;
 	}
 
-	public void setId(ProductvendorPK id) {
-		this.id = id;
-	}
+//	public void setId(ProductvendorPK id) {
+//		this.id = id;
+//	}
 
 	public void setLastreceiptcost(BigDecimal lastreceiptcost) {
 		this.lastreceiptcost = lastreceiptcost;
@@ -134,6 +152,18 @@ public class Productvendor implements Serializable {
 
 	public void setVendor(Vendor vendor) {
 		this.vendor = vendor;
+	}
+	public Integer getProductid() {
+		return this.productid;
+	}
+	public void setProductid(Integer productid) {
+		this.productid = productid;
+	}
+	public Integer getBusinessentityid() {
+		return this.businessentityid;
+	}
+	public void setBusinessentityid(Integer businessentityid) {
+		this.businessentityid = businessentityid;
 	}
 
 }

@@ -63,7 +63,7 @@
                 <span th:if="${#fields.hasErrors('productnumber')}" th:errors="*{productnumber}" class="text-danger"></span>
             </div>
                 <div class="form-group col-md-6">
-                <label for="product-day-to-manufacture">Days to manufactue</label>
+                <label for="product-day-to-manufacture">Days to manufacture</label>
                 <input type="number" name="daystomanufacture" id="days-to-manufacture" class="form-control" th:field="*{daystomanufacture}" th:value="${product.daystomanufacture}"/>
                 <span th:if="${#fields.hasErrors('daystomanufacture')}" th:errors="*{daystomanufacture}" class="text-danger"></span>
             </div>

@@ -180,10 +180,15 @@ public class Taller1PruebasApplication {
 		// Init Product Vendor
 		ProductVendorService pvs = c.getBean(ProductVendorServiceImpl.class);
 		Productvendor pv1 = new Productvendor();
+		pv1.setId(1);
 		pv1.setMaxorderqty(1000);
 		pv1.setMinorderqty(500);
 		pv1.setStandardprice(new BigDecimal("1000"));
 		pvs.save(pv1, um1.getUnitmeasurecode(), product1.getProductid(), v1.getBusinessentityid());
-	}
+		
+		Iterable<Productvendor> prv= pvs.findAll();
+		System.out.println(prv.iterator().hasNext());
+		
+				}
 
 }

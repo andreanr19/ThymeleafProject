@@ -47,6 +47,8 @@
             <th>Product id</th>
             <th>Edit</th>
             <th>Delete</th>
+            <th>Information</th>
+            
         </tr>
         </thead>
         <tbody>
@@ -61,6 +63,7 @@
                 </a>
             </td>
             <td th:text="${pv.standardprice}"></td>
+            <td th:text="${pv.productid}"></td>
 
             
             <td>
@@ -73,6 +76,9 @@
                     <i class="fas fa-user-times"></i>
                 </a>
             </td>
+              <td><a th:href="@{/product-vendors/{id}(id=${pv.id})}">
+							<i class="far fa-eye"></i>
+					</a></td>
         </tr>
         </tbody>
     </table>

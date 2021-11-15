@@ -9,7 +9,7 @@ public interface ProductVendorService {
 
 	public void save(Productvendor productVendor, long unitmeasureid, Integer productid, Integer vendorid);
 
-	public Optional<Productvendor> findById(ProductvendorPK id);
+	public Optional<Productvendor> findById(Integer id);
 
 	public Iterable<Productvendor> findAll();
 

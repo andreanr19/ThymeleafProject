@@ -5,4 +5,5 @@ import co.edu.icesi.model.Vendor;
 public interface VendorService {
 
 	public void save(Vendor vendor);
+	public Iterable<Vendor> findAll();
 }

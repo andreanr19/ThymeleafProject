@@ -17,5 +17,8 @@ public class VendorServiceImpl implements VendorService {
 	public void save(Vendor vendor) {
 		vendorrepository.save(vendor);
 	}
+	public Iterable<Vendor> findAll(){
+		return vendorrepository.findAll();
+	}
 	
 }

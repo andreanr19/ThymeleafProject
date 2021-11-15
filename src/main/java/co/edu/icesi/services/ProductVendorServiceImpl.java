@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.icesi.model.Productvendor;
@@ -31,6 +32,7 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 	private BusinessEntityRepositoryInterface businessentityrepository;
 	private VendorRepositoryInterface vendorrepository;
 
+	@Autowired
 	public ProductVendorServiceImpl(ProductVendorRepositoryInterface productVendorRepository,
 			UnitmeasureRepositoryInterface unitmeasureRepository, ProductRepositoryInterface productRepository,
 			BusinessEntityRepositoryInterface businessentityrepository, VendorRepositoryInterface vendorrepository) {
@@ -67,15 +69,14 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 			throw new IllegalArgumentException("Theres is one invalid argument");
 
 		} else {
-			ProductvendorPK pvPK = new ProductvendorPK();
-			pvPK.setProductid(product.get().getProductid());
+
 			productVendor.setUnitmeasurecode(unitmeasure.get().getUnitmeasurecode());
-			log.info(businessentity.get().getBusinessentityid());
 			vendor.get().setBusinessentityid(businessentity.get().getBusinessentityid());
 			productVendor.setVendor(vendor.get());
 			productVendor.getVendor().setBusinessentityid(vendor.get().getBusinessentityid());
-			//productVendor.setId(pvPK);
-			//productVendorRepository.save(productVendor);
+			productVendor.setProductid(productid);
+			productVendor.setBusinessentityid(businessentity.get().getBusinessentityid());
+			productVendorRepository.save(productVendor);
 
 		}
 	}
@@ -87,11 +88,11 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 //		return pvs;
 //	}
 
-	public Optional<Productvendor> findById(ProductvendorPK id) {
+	public Optional<Productvendor> findById(Integer id) {
 		return productVendorRepository.findById(id);
 	}
 
-	public boolean existsById(ProductvendorPK id) {
+	public boolean existsById(Integer id) {
 		return productVendorRepository.existsById(id);
 	}
 
@@ -99,7 +100,7 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 		return productVendorRepository.findAll();
 	}
 
-	public Iterable<Productvendor> findAllById(Iterable<ProductvendorPK> ids) {
+	public Iterable<Productvendor> findAllById(Iterable<Integer> ids) {
 		return productVendorRepository.findAllById(ids);
 	}
 
@@ -107,7 +108,7 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 		return productVendorRepository.count();
 	}
 
-	public void deleteById(ProductvendorPK id) {
+	public void deleteById(Integer id) {
 		productVendorRepository.deleteById(id);
 	}
 
