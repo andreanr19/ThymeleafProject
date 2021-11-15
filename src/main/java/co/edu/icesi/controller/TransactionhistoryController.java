@@ -101,4 +101,15 @@ public class TransactionhistoryController {
 		model.addAttribute("transactionhistories", transactionhistoryService.findAll());
 		return "redirect:/transaction-histories";
 	}
+	
+
+	@GetMapping("/{id}")
+	public String getProduct(Model model, @PathVariable("id") Integer id) {
+		Transactionhistory trh = transactionhistoryService.findById(id).get();
+
+		model.addAttribute("trh", trh);
+
+		return "transaction-histories/information";
+	}
+
 }
