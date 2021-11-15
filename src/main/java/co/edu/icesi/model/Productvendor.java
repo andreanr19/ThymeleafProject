@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * The persistent class for the productvendor database table.
@@ -26,6 +29,7 @@ public class Productvendor implements Serializable {
 	
 	@Id
 	private Integer id;
+	
 	@Column(insertable=false, updatable=false)
 	private Integer productid;
 
@@ -46,19 +50,25 @@ public class Productvendor implements Serializable {
 
 	private Timestamp lastreceiptdate;
 
+	@NotNull(groups=Add.class)
 	private Integer maxorderqty;
 
+	@NotNull(groups=Add.class)
 	private Integer minorderqty;
 
 	private Timestamp modifieddate;
 
 	private Integer onorderqty;
 
+	@NotNull(groups=Add.class)
+	@Min(value=0, groups=Add.class)
 	private BigDecimal standardprice;
 
+	@NotNull(groups=Add.class)
 	private long unitmeasurecode;
 
 	// bi-directional many-to-one association to Vendor
+	@NotNull(groups=Add.class)
 	@ManyToOne
 	@JoinColumn(name = "businessentityid", insertable = false, updatable = false)
 	private Vendor vendor;

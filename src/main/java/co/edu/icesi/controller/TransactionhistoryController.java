@@ -63,7 +63,7 @@ public class TransactionhistoryController {
 			if (result.hasErrors()) {
 				model.addAttribute("products", productService.findAll());
 
-				return "products/edit";
+				return "transaction-histories/edit";
 			}
 			trh.setProduct(trh.getProduct());
 			transactionhistoryService.editCorrect(trh, trh.getProduct().getProductid());

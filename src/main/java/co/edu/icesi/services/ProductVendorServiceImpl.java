@@ -70,14 +70,16 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 
 		} else {
 
+			productVendor.setId(productVendor.getId());
 			productVendor.setUnitmeasurecode(unitmeasure.get().getUnitmeasurecode());
 			vendor.get().setBusinessentityid(businessentity.get().getBusinessentityid());
 			productVendor.setVendor(vendor.get());
+			productVendor.getVendor().setName(vendor.get().getName());
 			productVendor.getVendor().setBusinessentityid(vendor.get().getBusinessentityid());
 			productVendor.setProductid(productid);
 			productVendor.setBusinessentityid(businessentity.get().getBusinessentityid());
 			productVendorRepository.save(productVendor);
-
+			System.out.println(productVendor.getProductid());
 		}
 	}
 
@@ -146,4 +148,43 @@ public class ProductVendorServiceImpl implements ProductVendorService {
 //		save(pv);
 //	}
 
+	public void edit(Productvendor productVendor, long unitmeasureid, Integer productid, Integer vendorId) {
+		Optional<Unitmeasure> unitmeasure = unitmeasureRepository.findById(unitmeasureid);
+		Optional<Product> product = productRepository.findById(productid);
+		Optional<Businessentity> businessentity = businessentityrepository.findById(vendorId);
+		Optional<Vendor> vendor = vendorrepository.findById(vendorId);
+
+		Optional<Productvendor> pv = productVendorRepository.findById(productVendor.getId());
+		if (unitmeasure.isEmpty()) {
+			throw new RuntimeException();
+
+		} else if (product.isEmpty()) {
+			throw new RuntimeException();
+
+		} else if (vendor.isEmpty()) {
+			throw new RuntimeException();
+
+		} else if (businessentity.isEmpty()) {
+			throw new RuntimeException();
+
+		} else if ((productVendor.getMaxorderqty() < productVendor.getMinorderqty())
+				|| !(productVendor.getStandardprice().compareTo(new BigDecimal("0")) == 1)) {
+			throw new IllegalArgumentException("Theres is one invalid argument");
+
+		} else {
+			Productvendor productvendorentity = pv.get();
+
+			productvendorentity.setMaxorderqty(productVendor.getMaxorderqty());
+			productvendorentity.setMinorderqty(productVendor.getMinorderqty());
+			productvendorentity.setStandardprice(productVendor.getStandardprice());
+			productvendorentity.setUnitmeasurecode(unitmeasure.get().getUnitmeasurecode());
+			vendor.get().setBusinessentityid(businessentity.get().getBusinessentityid());
+			productvendorentity.setVendor(vendor.get());
+			productvendorentity.getVendor().setBusinessentityid(vendor.get().getBusinessentityid());
+			productvendorentity.setProductid(productid);
+			productvendorentity.setBusinessentityid(businessentity.get().getBusinessentityid());
+			productVendorRepository.save(productvendorentity);
+			System.out.println(productVendor.getProductid());
+		}
+	}
 }

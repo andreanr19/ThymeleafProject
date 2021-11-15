@@ -170,12 +170,25 @@ public class Taller1PruebasApplication {
 		BusinessEntityService be = c.getBean(BusinessEntityServiceImpl.class);
 		Businessentity b1 = new Businessentity();
 		be.save(b1);
+		Businessentity b2 = new Businessentity();
+		be.save(b2);
+		Businessentity b3 = new Businessentity();
+		be.save(b3);
 
 		// init vendor
 		VendorService vs = c.getBean(VendorServiceImpl.class);
 		Vendor v1 = new Vendor();
+		v1.setName("Snow");
 		v1.setBusinessentityid(b1.getBusinessentityid());
 		vs.save(v1);
+		Vendor v2 = new Vendor();
+		v2.setName("Max");
+		v2.setBusinessentityid(b2.getBusinessentityid());
+		vs.save(v2);
+		Vendor v3 = new Vendor();
+		v3.setName("Lucy");
+		v3.setBusinessentityid(b3.getBusinessentityid());
+		vs.save(v3);
 
 		// Init Product Vendor
 		ProductVendorService pvs = c.getBean(ProductVendorServiceImpl.class);
