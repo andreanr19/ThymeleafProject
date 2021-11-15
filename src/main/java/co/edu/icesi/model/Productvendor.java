@@ -7,10 +7,13 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +31,8 @@ public class Productvendor implements Serializable {
 //	private ProductvendorPK id;
 	
 	@Id
+	@SequenceGenerator(name = "PRODUCTVENDOR_PRODUCTVENDORID_GENERATOR", allocationSize = 1, sequenceName = "PRODUCTVENDOR_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCTVENDOR_PRODUCTVENDORID_GENERATOR")
 	private Integer id;
 	
 	@Column(insertable=false, updatable=false)

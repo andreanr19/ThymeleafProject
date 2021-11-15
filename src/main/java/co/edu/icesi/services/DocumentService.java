@@ -11,4 +11,5 @@ public interface DocumentService {
 	public Optional<Document> findById(Long id);
 	public Iterable<Document> findAll();
 	public void editCorrect(Document document, Integer productId);
+	public void delete(Document document);
 }

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Product vendor information</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div class="container my-5">
+		<h2>Product vendor</h2>
+		<p>
+			<a href="/" class="btn btn-primary">Menu</a>
+		</p>
+		<div>
+			<h5>Id</h5>
+			<p th:text="${productvendor.id}"></p>
+		</div>
+		<div>
+			<h5>Max order</h5>
+			<p th:text="${productvendor.maxorderqty}"></p>
+		</div>
+		<div>
+			<h5>Min order</h5>
+			<p th:text="${productvendor.minorderqty}"></p>
+		</div>
+
+		<div>
+			<h5>Standard price</h5>
+			<a th:text="${productvendor.standardprice}"></a>
+		</div>
+
+
+
+		<p>
+			<a th:href="@{/product-vendors/edit/{id}(id=${productvendor.id})}"
+				class="btn btn-primary">Edit</a>
+		</p>
+		<form>
+			<input type="button" value="Go back!" onclick="history.back()"
+				class="btn btn-primary">
+		</form>
+	</div>
+</body>
+</html>

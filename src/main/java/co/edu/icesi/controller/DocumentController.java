@@ -86,6 +86,14 @@ public class DocumentController {
 		}
 		return "redirect:/documents";
 	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteUser(@PathVariable("id") long id, Model model) {
+		Document document = documentService.findById(id).get();
+		documentService.delete(document);
+		model.addAttribute("documents", documentService.findAll());
+		return "documents/index";
+	}
 
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") long id) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import co.edu.icesi.model.Add;
+import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
 import co.edu.icesi.services.BusinessEntityService;
@@ -112,5 +113,21 @@ public class ProductVendorController {
 					productvendor.getVendor().getBusinessentityid());
 		}
 		return "redirect:/product-vendors";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteProductvendor(@PathVariable("id") Integer id, Model model) {
+		Productvendor productvendor = productvendorService.findById(id).get();
+		productvendorService.delete(productvendor);
+		model.addAttribute("productvendors", productvendorService.findAll());
+		return "product-vendors/index";
+	}
+	@GetMapping("/{id}")
+	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
+		Productvendor productvendor = productvendorService.findById(id).get();
+
+		model.addAttribute("productvendor", productvendor);
+
+		return "product-vendors/information";
 	}
 }

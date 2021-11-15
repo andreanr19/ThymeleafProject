@@ -121,7 +121,7 @@ public class Product implements Serializable {
 	private List<Productcosthistory> productcosthistories;
 
 	// bi-directional many-to-one association to Productdocument
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", cascade=CascadeType.REMOVE)
 	private List<Productdocument> productdocuments;
 
 	// bi-directional many-to-one association to Productinventory

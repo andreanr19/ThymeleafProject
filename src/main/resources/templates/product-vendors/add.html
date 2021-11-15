@@ -55,14 +55,7 @@
 					</select> <span th:if="${#fields.hasErrors('vendor')}" th:errors="*{vendor}"
 						class="text-danger"></span>
 				</div>
-				<div class="form-group col-md-6">
-					<label for="id">Id</label> <input
-						type="number" name="id" id="id"
-						class="form-control" th:field="*{id}"
-						th:value="${productvendor.id}" /> <span
-						th:if="${#fields.hasErrors('id')}"
-						th:errors="*{id}" class="text-danger"></span>
-				</div>
+				
 				<div class="form-group col-md-6">
 					<label for="maxorderqty">Max order</label> <input type="number"
 						name="maxorderqty" id="maxorderqty" class="form-control"

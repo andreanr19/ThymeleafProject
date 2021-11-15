@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -61,7 +62,7 @@ public class Document implements Serializable {
 	private Product product;
 
 	// bi-directional many-to-one association to Productdocument
-	@OneToMany(mappedBy = "document")
+	@OneToMany(mappedBy = "document", cascade=CascadeType.REMOVE)
 	private List<Productdocument> productdocuments;
 
 	public Document() {
