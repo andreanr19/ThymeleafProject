@@ -26,6 +26,10 @@
         <h5>Id</h5>
         <p th:text="${product.productid}"></p>
     </div>
+     <div>
+        <h5>Name</h5>
+        <p th:text="${product.name}"></p>
+    </div>
     <div>
         <h5>Product days to manufacture</h5>
         <p th:text="${product.daystomanufacture}"></p>
@@ -37,11 +41,13 @@
   
      <div>
         <h5>Product subcategory</h5>
-        <a th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"></a>
+        <a th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"
+        th:href="@{/subcategories/{id}(id=${product.productsubcategory.productsubcategoryid})}"></a>
     </div>
          <div>
         <h5>Unit measure</h5>
-        <a th:text="${product.unitmeasure1.unitmeasurecode} + ': ' + ${product.unitmeasure1.name}"></a>
+        <a th:text="${product.unitmeasure1.unitmeasurecode} + ': ' + ${product.unitmeasure1.name}"
+        th:href="@{/unitmeasures/{id}(id=${product.unitmeasure1.unitmeasurecode})}"></a>
     </div>
         <div>
         <h5>Sell start date</h5>

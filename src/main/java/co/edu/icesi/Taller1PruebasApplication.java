@@ -75,7 +75,7 @@ public class Taller1PruebasApplication {
 
 		UserEntity user2 = new UserEntity();
 		user2.setUsername("Andrea");
-		user2.setPassword("{noop}password2");
+		user2.setPassword("{noop}1");
 
 		user2.setType(Usertype.OPERATOR);
 		u.save(user2);

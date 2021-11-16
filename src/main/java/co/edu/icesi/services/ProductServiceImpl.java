@@ -223,6 +223,7 @@ public class ProductServiceImpl implements ProductService{
 				productEntity.setProductsubcategory(productsubcategory.get());
 				productEntity.getProductsubcategory().setProductcategory(productcategory.get());
 				productEntity.setUnitmeasure1(unitmeasure.get());
+				productEntity.setName(product.getName());
 				productEntity.setProductnumber(product.getProductnumber());
 				productEntity.setDaystomanufacture(product.getDaystomanufacture());
 				productEntity.setSellstartdate(product.getSellstartdate());

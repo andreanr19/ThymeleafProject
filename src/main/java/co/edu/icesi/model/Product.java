@@ -57,6 +57,7 @@ public class Product implements Serializable {
 
 	private Timestamp modifieddate;
 
+	@NotNull(message="name shouldn't be null", groups=Add.class)
 	private String name;
 
 	private String productline;

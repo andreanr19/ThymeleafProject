@@ -42,6 +42,7 @@
 			<thead>
 				<tr>
 					<th>Id</th>
+					<th>Name</th>
 					<th>Subcategory</th>
 					<th>Unit measure</th>
 					<th>Product number</th>
@@ -57,6 +58,8 @@
 				<tr class="align-items-center" th:each="product : ${products}"
 					th:value="${product}">
 					<td th:text="${product.productid}"></td>
+					<td th:text="${product.name}"></td>
+
 					<td><a
 						th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"
 						th:href="@{/subcategories/{id}(id=${product.productsubcategory.productsubcategoryid})}"></a>
@@ -70,11 +73,13 @@
 					<td th:text="${product.sellenddate}"></td>
 					<td th:text="${product.daystomanufacture}"></td>
 
-					<td><a th:href="@{/products/edit/{id}(id=${product.productid})}">
-							<i class="fas fa-user-edit"></i>
+					<td><a
+						th:href="@{/products/edit/{id}(id=${product.productid})}"> <i
+							class="fas fa-user-edit"></i>
 					</a></td>
-					<td><a th:href="@{/products/delete/{id}(id=${product.productid})}">
-							<i class="fas fa-user-times"></i>
+					<td><a
+						th:href="@{/products/delete/{id}(id=${product.productid})}"> <i
+							class="fas fa-user-times"></i>
 					</a></td>
 					<td><a th:href="@{/products/{id}(id=${product.productid})}">
 							<i class="far fa-eye"></i>

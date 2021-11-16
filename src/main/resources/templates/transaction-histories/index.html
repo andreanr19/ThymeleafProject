@@ -55,7 +55,8 @@
         <tr class="align-items-center" th:each="trh : ${transactionalhistories}" th:value="${trh}">
             <td th:text="${trh.transactionid}"></td>
             <td>
-                <a th:text="${trh.product.productid} + ': ' + ${trh.product.name}">
+                <a th:text="${trh.product.productid} + ': ' + ${trh.product.name}"
+                th:href="@{/products/{id}(id=${trh.product.productid})}">
                 </a>
             </td>
             <td>

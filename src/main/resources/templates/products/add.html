@@ -56,7 +56,11 @@
                 </select>
                 <span th:if="${#fields.hasErrors('unitmeasure1')}" th:errors="*{unitmeasure1}" class="text-danger"></span>
             </div>
-                
+              <div class="form-group col-md-6">
+                <label for="product-number">Product name</label>
+                <input type="text" name="name" id="name" class="form-control" th:field="*{name}" th:value="${product.name}"/>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+            </div>  
             <div class="form-group col-md-6">
                 <label for="product-number">Product number</label>
                 <input type="number" name="productnumber" id="product-number" class="form-control" th:field="*{productnumber}" th:value="${product.productnumber}"/>
