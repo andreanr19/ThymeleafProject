@@ -87,7 +87,7 @@ public class Product implements Serializable {
 	private BigDecimal weight;
 
 	// bi-directional many-to-one association to Billofmaterial
-	@OneToMany(mappedBy = "product1")
+	@OneToMany(mappedBy = "product1") 
 	private List<Billofmaterial> billofmaterials1;
 
 	// bi-directional many-to-one association to Billofmaterial

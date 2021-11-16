@@ -58,10 +58,12 @@
 					th:value="${product}">
 					<td th:text="${product.productid}"></td>
 					<td><a
-						th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"></a>
+						th:text="${product.productsubcategory.productsubcategoryid} + ': ' + ${product.productsubcategory.name}"
+						th:href="@{/subcategories/{id}(id=${product.productsubcategory.productsubcategoryid})}"></a>
 					</td>
 					<td><a
-						th:text="${product.unitmeasure1.unitmeasurecode} + ': ' + ${product.unitmeasure1.name}"></a>
+						th:text="${product.unitmeasure1.unitmeasurecode} + ': ' + ${product.unitmeasure1.name}"
+						th:href="@{/unitmeasures/{id}(id=${product.unitmeasure1.unitmeasurecode})}"></a>
 					</td>
 					<td th:text="${product.productnumber}"></td>
 					<td th:text="${product.sellstartdate}"></td>
