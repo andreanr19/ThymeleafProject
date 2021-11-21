@@ -51,21 +51,23 @@ public class DocumentServiceImpl implements DocumentService {
 			throw new IllegalArgumentException("Invalid argument");
 
 		} else {
-			document.setProduct(product.get());
-			document = documentRepository.save(document);
 
+			document.setProduct(product.get());
+//			long documentnodereal = document.getDocumentnode();
+//			Document documentreference = document;
+			System.out.println("******" + document);
+			document = documentRepository.save(document);
+			System.out.println("-----"+ document);
 			ProductdocumentPK pdk = new ProductdocumentPK();
 			Productdocument pd = new Productdocument();
 			pdk.setDocumentnode(document.getDocumentnode());
+			System.out.println("sdajdabjkh "+ document.getDocumentnode());
 			pdk.setProductid(product.get().getProductid());
 			pd.setId(pdk);
 			pd.setDocument(document);
-			pd.setProduct(product.get());
-			//long time = System.currentTimeMillis();
-			//Timestamp actualdate = new Timestamp(time);
-			//pd.setModifieddate(actualdate);
-//			document.addProductdocument(pd);
-//			product.get().addProductdocument(pd);
+
+			pd.setProduct(product.get()); // transient
+
 			productdocumentRepository.save(pd);
 
 		}
@@ -160,9 +162,9 @@ public class DocumentServiceImpl implements DocumentService {
 				docentity.setFilename(document.getFilename());
 				long time = System.currentTimeMillis();
 				Timestamp actualdate = new Timestamp(time);
-				
-				docentity.getProductdocuments().get(docentity.getProductdocuments().size() - 1)
-						.setProduct(product.get());
+
+//				docentity.getProductdocuments().get(docentity.getProductdocuments().size() - 1)
+//						.setProduct(product.get());
 				docentity = documentRepository.save(docentity);
 				docentity.setModifieddate(actualdate);
 				System.out.println(docentity.getModifieddate());

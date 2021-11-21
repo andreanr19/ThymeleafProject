@@ -183,12 +183,6 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 		} else if (transactionhistory.getActualcost().compareTo(new BigDecimal("0")) == 0) {
 			throw new IllegalArgumentException("The cost shouldn't be 0");
 
-//			} else if (!(actualdate.compareTo(transactionhistory.getTransactiondate()) == 0)) {
-//				System.out.println(actualdate);
-//				System.out.println(transactionhistory.getTransactiondate());
-//
-//				throw new IllegalArgumentException("transaction history date should be the actual date ");
-
 		} else {
 			Transactionhistory thentity = th.get();
 			thentity.setQuantity(transactionhistory.getQuantity());

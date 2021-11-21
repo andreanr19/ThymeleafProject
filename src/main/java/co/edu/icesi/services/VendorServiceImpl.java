@@ -20,5 +20,10 @@ public class VendorServiceImpl implements VendorService {
 	public Iterable<Vendor> findAll(){
 		return vendorrepository.findAll();
 	}
+
+	@Override
+	public Vendor findById(Integer id) {
+		return vendorrepository.findById(id).get();
+	}
 	
 }

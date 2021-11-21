@@ -6,4 +6,5 @@ public interface VendorService {
 
 	public void save(Vendor vendor);
 	public Iterable<Vendor> findAll();
+	public Vendor findById(Integer id);
 }

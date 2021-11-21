@@ -76,12 +76,13 @@ public class ProductServiceImpl implements ProductService{
 		} else if (unitmeasure.isEmpty()) {
 			throw new RuntimeException();
 		} else {
+			productsubcategory.get().setProductcategory(productcategory.get());
 			product.setProductsubcategory(productsubcategory.get());
-			
-			product.getProductsubcategory().setProductcategory(productcategory.get());
+		
+//			product.getProductsubcategory().setProductcategory(productcategory.get());
 			product.setUnitmeasure1(unitmeasure.get());
 			productRepository.save(product);
-			log.info(product.getProductsubcategory().getProductcategory().getName());
+			//log.info(product.getProductsubcategory().getProductcategory().getName());
 		}
 	}
 
@@ -128,72 +129,6 @@ public class ProductServiceImpl implements ProductService{
 		productRepository.deleteAll();
 	}
 
-//	public void editProduct(Integer id, String class_, String color, Integer daystomanufacture,
-//			Timestamp discontinueddate, String finishedgoodsflag, BigDecimal listprice, String makeflag,
-//			Timestamp modifieddate, String name, String productline, String productnumber, Integer reorderpoint,
-//			Integer rowguid, Integer safetystocklevel, Timestamp sellenddate, Timestamp sellstartdate, String size,
-//			BigDecimal standardcost, String style, BigDecimal weight, Productsubcategory psc, Productcategory pc,
-//			Unitmeasure um1, Unitmeasure um2) {
-//
-//		if (productnumber.isEmpty() || !sellstartdate.before(sellenddate) || !(daystomanufacture > 0)) {
-//			throw new IllegalArgumentException("One argument is invalid");
-//
-//		}
-//		Product p = findById(id).get();
-//		p.setClass_(class_);
-//		p.setColor(color);
-//		p.setDaystomanufacture(daystomanufacture);
-//		p.setDiscontinueddate(discontinueddate);
-//		p.setFinishedgoodsflag(finishedgoodsflag);
-//		p.setListprice(listprice);
-//		p.setMakeflag(makeflag);
-//		p.setModifieddate(modifieddate);
-//		p.setName(name);
-//		p.setProductline(productline);
-//		p.setProductnumber(productnumber);
-//		p.setReorderpoint(reorderpoint);
-//		p.setRowguid(rowguid);
-//		p.setSafetystocklevel(safetystocklevel);
-//		p.setSellenddate(sellenddate);
-//		p.setSellstartdate(sellstartdate);
-//		p.setSize(size);
-//		p.setStandardcost(standardcost);
-//		p.setStyle(style);
-//		p.setWeight(weight);
-//		save(p);
-//	}
-//
-//	public void editProduct2(Product product) {
-//
-//		if (product.getProductnumber().isEmpty() || !product.getSellstartdate().before(product.getSellenddate())
-//				|| !(product.getDaystomanufacture() > 0)) {
-//			throw new IllegalArgumentException("One argument is invalid");
-//
-//		}
-//		Product productEntity = findById(product.getProductid()).get();
-//		productEntity.setClass_(product.getClass_());
-//		productEntity.setColor(product.getColor());
-//		productEntity.setDaystomanufacture(product.getDaystomanufacture());
-//		productEntity.setDiscontinueddate(product.getDiscontinueddate());
-//		productEntity.setFinishedgoodsflag(product.getFinishedgoodsflag());
-//		productEntity.setListprice(product.getListprice());
-//		productEntity.setMakeflag(product.getMakeflag());
-//		productEntity.setModifieddate(product.getModifieddate());
-//		productEntity.setName(product.getName());
-//		productEntity.setProductline(product.getProductline());
-//		productEntity.setProductnumber(product.getProductnumber());
-//		productEntity.setReorderpoint(product.getReorderpoint());
-//		productEntity.setRowguid(product.getRowguid());
-//		productEntity.setSafetystocklevel(product.getSafetystocklevel());
-//		productEntity.setSellenddate(product.getSellenddate());
-//		productEntity.setSellstartdate(product.getSellenddate());
-//		productEntity.setSize(product.getSize());
-//		productEntity.setStandardcost(product.getStandardcost());
-//		productEntity.setStyle(product.getStyle());
-//		productEntity.setWeight(product.getWeight());
-//		save(productEntity);
-//	}
-
 	public void editCorrect(Product product, Integer prCategoryId, Integer prSCategoryId, Long unitMId) {
 		Optional<Productcategory> productcategory = productCategoryRepository.findById(prCategoryId);
 		Optional<Productsubcategory> productsubcategory = productSubCategoryRepository.findById(prSCategoryId);
@@ -203,9 +138,8 @@ public class ProductServiceImpl implements ProductService{
 			throw new RuntimeException();
 		} else {
 			Optional<Product> p = productRepository.findById(product.getProductid());
-
 			if (productcategory.isEmpty()) {
-				throw new RuntimeException();
+				throw new RuntimeException("Product category is empty");
 
 			} else if (product.getProductnumber().isEmpty()) {
 				throw new IllegalArgumentException("The product number argument shouldn't be empty");
@@ -214,10 +148,10 @@ public class ProductServiceImpl implements ProductService{
 						"Product sell end date should be greater than product sell start date");
 			} else if (!(product.getDaystomanufacture() > 0)) {
 				throw new IllegalArgumentException("Product's days to manufacture should be greater than 0");
-			} else if (productcategory.isEmpty()) {
-				throw new RuntimeException();
+			} else if (productsubcategory.isEmpty()) {
+				throw new RuntimeException("Product subcategory is empty");
 			} else if (unitmeasure.isEmpty()) {
-				throw new RuntimeException();
+				throw new RuntimeException("Unit measure is empty");
 			} else {
 				Product productEntity = p.get();
 				productEntity.setProductsubcategory(productsubcategory.get());
@@ -229,7 +163,7 @@ public class ProductServiceImpl implements ProductService{
 				productEntity.setSellstartdate(product.getSellstartdate());
 				productEntity.setSellenddate(product.getSellenddate());
 				productRepository.save(productEntity);
-				log.info(productEntity.getProductsubcategory().getProductcategory().getName());
+				//log.info(productEntity.getProductsubcategory().getProductcategory().getName());
 
 			}
 		}

@@ -19,8 +19,8 @@ public class UnitMeasureServiceImpl implements UnitMeasureService {
 		return unitmeasureRepository.save(unitmeasure);
 
 	}
-	public Optional<Unitmeasure> findById(long id) {
-		return unitmeasureRepository.findById(id);
+	public Unitmeasure findById(long id) {
+		return unitmeasureRepository.findById(id).get();
 	}
 	@Override
 	public Iterable<Unitmeasure> findAll() {

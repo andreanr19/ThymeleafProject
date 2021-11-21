@@ -22,5 +22,8 @@ public class BusinessEntityServiceImpl implements BusinessEntityService {
 		return bussinessentityrepository.findAll();
 	}
 	
+	public Businessentity findById(Integer id) {
+		return bussinessentityrepository.findById(id).get();
+	}
 	
 }

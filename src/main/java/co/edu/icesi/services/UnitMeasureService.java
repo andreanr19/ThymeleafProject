@@ -6,6 +6,7 @@ public interface UnitMeasureService {
 	
 	public <S extends Unitmeasure> S save(S unitmeasure);
 	public Iterable<Unitmeasure> findAll();
+	public Unitmeasure findById(long id);
 
 
 }
