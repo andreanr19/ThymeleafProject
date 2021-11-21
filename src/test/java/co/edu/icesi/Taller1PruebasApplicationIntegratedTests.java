@@ -33,6 +33,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import co.edu.icesi.model.Businessentity;
 import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
@@ -42,6 +43,7 @@ import co.edu.icesi.model.Productsubcategory;
 import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
 import co.edu.icesi.model.Unitmeasure;
+import co.edu.icesi.model.Vendor;
 import co.edu.icesi.repositories.DocumentRepositoryInterface;
 import co.edu.icesi.repositories.ProductCategoryRepositoryInterface;
 import co.edu.icesi.repositories.ProductDocumentRepositoryInterface;
@@ -49,16 +51,19 @@ import co.edu.icesi.repositories.ProductRepositoryInterface;
 import co.edu.icesi.repositories.ProductSubcategoryRepositoryInterface;
 import co.edu.icesi.repositories.TransactionHistoryRepositoryInterface;
 import co.edu.icesi.repositories.UnitmeasureRepositoryInterface;
+import co.edu.icesi.services.BusinessEntityServiceImpl;
 import co.edu.icesi.services.DocumentServiceImpl;
 import co.edu.icesi.services.ProductCategoryService;
 import co.edu.icesi.services.ProductCategoryServiceImpl;
 import co.edu.icesi.services.ProductServiceImpl;
 import co.edu.icesi.services.ProductSubcategoryService;
 import co.edu.icesi.services.ProductSubcategoryServiceImpl;
+import co.edu.icesi.services.ProductVendorServiceImpl;
 import co.edu.icesi.services.ProductdocumentServiceImpl;
 import co.edu.icesi.services.TransactionHistoryServiceImpl;
 import co.edu.icesi.services.UnitMeasureService;
 import co.edu.icesi.services.UnitMeasureServiceImpl;
+import co.edu.icesi.services.VendorServiceImpl;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
@@ -82,25 +87,32 @@ class Taller1PruebasApplicationIntegratedTests {
 	private DocumentServiceImpl documentService;
 	private Document documentEntity;
 
-	private ProductdocumentServiceImpl productDocumentService;
-	private Productdocument productdocumentEntity;
-
 	private UnitMeasureServiceImpl unitmeasureService;
 	private Unitmeasure unitmeasureEntity;
+
+	private ProductVendorServiceImpl productVendorService;
+	private Productvendor productvendorEntity;
+	private BusinessEntityServiceImpl businessEntityService;
+	private Businessentity businessEntity;
+	private VendorServiceImpl vendorService;
+	private Vendor vendorEntity;
 
 	@Autowired
 	public Taller1PruebasApplicationIntegratedTests(ProductServiceImpl productService,
 			ProductSubcategoryServiceImpl productSubcategoryService, ProductCategoryServiceImpl productCategoryService,
 			TransactionHistoryServiceImpl transactionHistoryService, DocumentServiceImpl documentService,
-			ProductdocumentServiceImpl productDocumentService, UnitMeasureServiceImpl unitmeasureService) {
+			UnitMeasureServiceImpl unitmeasureService, ProductVendorServiceImpl productVendorService,
+			BusinessEntityServiceImpl businessEntityService, VendorServiceImpl vendorService) {
 
 		this.productService = productService;
 		this.productSubcategoryService = productSubcategoryService;
 		this.productCategoryService = productCategoryService;
 		this.transactionHistoryService = transactionHistoryService;
 		this.documentService = documentService;
-		this.productDocumentService = productDocumentService;
 		this.unitmeasureService = unitmeasureService;
+		this.productVendorService = productVendorService;
+		this.businessEntityService = businessEntityService;
+		this.vendorService = vendorService;
 
 	}
 
@@ -118,9 +130,27 @@ class Taller1PruebasApplicationIntegratedTests {
 		unitmeasureEntity.setName("Kilometers");
 		unitmeasureEntity = unitmeasureService.save(unitmeasureEntity);
 	}
+
 	@BeforeAll
 	public void setUpTransactionhistory() {
-		
+		transactionHistoryEntity = new Transactionhistory();
+	}
+
+	@BeforeAll
+	public void setUpDocument() {
+		documentEntity = new Document();
+
+	}
+
+	@BeforeAll
+	public void setUpProductVendor() {
+		businessEntity = new Businessentity();
+		businessEntityService.save(businessEntity);
+		vendorEntity = new Vendor();
+		vendorEntity.setName("Snow");
+		vendorEntity.setBusinessentityid(businessEntity.getBusinessentityid());
+		vendorService.save(vendorEntity);
+
 	}
 
 	// Punto 5A: Test para el servicio de guardar un producto.
@@ -211,7 +241,7 @@ class Taller1PruebasApplicationIntegratedTests {
 			productEntity.setDaystomanufacture(daysToManufacture);
 			productEntity.setSellstartdate(sellstart);
 			productEntity.setSellenddate(sellend);
-			
+
 			productService.editCorrect(productEntity,
 					productEntity.getProductsubcategory().getProductcategory().getProductcategoryid(),
 					productEntity.getProductsubcategory().getProductsubcategoryid(),
@@ -231,160 +261,138 @@ class Taller1PruebasApplicationIntegratedTests {
 
 	}
 
-//
-//	// PUNTO 5B: Test para el servicio de guardar una historia de transacciones
-//
-//	@Test
-//	@Order(3)
-//	public void saveTransactionHistoryTest() {
-//
-//		Product theProduct = productService.findById(productId.getProductid()).get();
-//		Transactionhistory th = new Transactionhistory();
-//		// when(transactionHistoryRepositoryM.findById(01)).thenReturn(Optional.of(th));
-//
-//		th.setQuantity(12);
-//		th.setActualcost(new BigDecimal("20"));
-//		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-//		Date ahora = new Date();
-//		df.format(ahora);
-//		long time = ahora.getTime();
-//		Timestamp actualdate = new Timestamp(time);
-//		th.setTransactiondate(actualdate);
-//
-//		// probando con una fecha que no es la actual lanza error
-////		DateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
-////		Date date1;
-////		try {
-////			date1 = df2.parse("23/09/2020");Date date2 = df2.parse("23/10/2020");
-////			long time1 = date1.getTime();
-////			long time2 = date2.getTime();
-////			Timestamp sellstart = new Timestamp(time1);
-////			th.setTransactiondate(sellstart);
-////		} catch (ParseException e) {
-////			e.printStackTrace();
-////		}
-//
-//		// agregamos la transacción al producto
-//		// theProduct.addTransactionhistory(th);
-//		// verificamos que se haya seteado correctamente la transacción
-//		assertEquals(actualdate, th.getTransactiondate());
-//		// guardamos la transacción a través del servicio
-//		transactionHistoryId = transactionHistoryService.save(th);
-//
-//		// Verificamos que se hayan asignado correctamente los objetos a través de los
-//		// servicios y mocks
-//		Transactionhistory thtest = transactionHistoryService.findById(transactionHistoryId.getTransactionid()).get();
-//		// assertSame(th, thtest);
-//		// assertSame(theProduct, thtest.getProduct());
-//		// assertTrue(theProduct.getTransactionhistories().contains(thtest));
-//		assertEquals(actualdate, thtest.getTransactiondate());
-//
-//		// Verificamos que los mocks de los repositorios cumplan su función
-//		// verify(transactionHistoryRepositoryM).save(th);
-//		// verify(transactionHistoryRepositoryM).findById(01);
-//
-//		// el método findById de produdctRepository es llamado 4 veces:
-//		// 1. Cuando se llama desde el método test 1 del saveProductTest
-//		// 2. Dentro del método editProductTest para obtener al producto
-//		// 3. Dentro del método editProductTest para editar el producto
-//		// 4. Dentro de este método para obtener el producto
-//		// verify(productRepositoryM, VerificationModeFactory.times(4)).findById(01);
-//
-//	}
-//
-//	@Test
-//	@Order(4)
-//	public void editTransactionHistoryTest() {
-//
-//		assertThrows(IllegalArgumentException.class, () -> transactionHistoryService.editTransactionHistory(01,
-//				new BigDecimal("0"), null, 0, 0, 0, null, ""));
-//
-//		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-//		Date ahora = new Date();
-//		df.format(ahora);
-//		long time = ahora.getTime();
-//		Timestamp actualdate = new Timestamp(time);
-//
-//		transactionHistoryService.editTransactionHistory(transactionHistoryId.getTransactionid(), new BigDecimal("2"),
-//				null, 100, 100, 100, actualdate, "smthng");
-//		Transactionhistory th = transactionHistoryService.findById(transactionHistoryId.getTransactionid()).get();
-//
-//		assertEquals(actualdate, th.getTransactiondate());
-//		// verify(transactionHistoryRepositoryM,
-//		// VerificationModeFactory.times(3)).findById(01);
-//
-//	}
-//
-////	@Test
-////	@Order(5)
-////	public void saveDocumentTest() {
-////		Product p = new Product();
-////		Document d = new Document();
-////		String documentid = "iddocument";
-////		ProductdocumentPK id = new ProductdocumentPK();
-////		Productdocument pd = new Productdocument();
-////
-////		 pd = productDocumentService.findById(productdocumentId.getId()).get();
-////	ProductdocumentPK idpk = new ProductdocumentPK();
-////	pd.setId(idpk);
-////	productDocumentService.save(pd);
-////	productdocumentId = pd;
-////
-////
-////		// when(productDocumentRepositoryM.findById(id)).thenReturn(Optional.of(pd));
-////		// when(documentRepositoryM.findById(documentid)).thenReturn(Optional.of(d));
-////
-////		String fileName = "This is the file name";
-////		String fileExtensionTest = "This is a test";
-////		d.setFilename(fileName);
-////		d.setFileextension(fileExtensionTest);
-////
-////		pd.setDocument(d);
-////
-////		productId = productService.save(p); // guardo s product a través del servicio
-////
-////		Product theProduct = productService.findById(productId.getProductid()).get();
-////		theProduct.addProductdocument(pd);
-////		assertEquals(fileName, d.getFilename());
-////
-////		documentId =documentService.save(d);
-////
-////		Document documenttest = documentService.findById(documentId.getDocumentnode()).get();
-////		assertSame(d, documenttest);
-////		assertSame(pd.getDocument(), documenttest);
-////		assertTrue(theProduct.getProductdocuments().contains(pd));
-////
-////		// Verificamos que los mocks de los repositorios cumplan su función
-////		// verify(documentRepositoryM).save(d);
-////		// verify(documentRepositoryM).findById(documentid);
-////
-////		// el método findById de produdctRepository es llamado 4 veces:
-////		// 1. Cuando se llama desde el método test 1 del saveProductTest
-////		// 2. Dentro del método editProductTest para obtener al producto
-////		// 3. Dentro del método editProductTest para editar el producto
-////		// 4. Dentro de este método para obtener el producto
-////		// verify(productRepositoryM, VerificationModeFactory.times(5)).findById(01);
-////
-////	}
-//
-////	@Test
-////	@Order(6)
-////	public void editDocumentTest() {
-////
-////		assertThrows(IllegalArgumentException.class, () -> documentService.editDocument("iddocument", null, null, null,
-////				"hh", "hhh", null, null, null, null, null, null, null));
-////
-////		String correctFilename = "correct file name";
-////		String correctextensionfile = "correct extension file";
-////
-////		documentService.editDocument("iddocument", null, null, correctextensionfile, correctextensionfile,
-////				correctFilename, null, null, null, null, null, null, null);
-////
-////		Document d = documentService.findById("iddocument").get();
-////
-////		assertEquals(correctFilename, d.getFilename());
-////		verify(documentRepositoryM, VerificationModeFactory.times(3)).findById("iddocument");
-////
-////	}
+	// PUNTO 5B: Test para el servicio de guardar una historia de transacciones
+
+	@Test
+	@Order(3)
+	public void saveTransactionHistoryTest() {
+
+		transactionHistoryEntity.setProduct(productEntity);
+		transactionHistoryEntity.setQuantity(10);
+		transactionHistoryEntity.setActualcost(new BigDecimal("5"));
+		transactionHistoryService.saveCorrect(transactionHistoryEntity, productEntity.getProductid());
+
+		Transactionhistory theProduct = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid())
+				.get(); // me devuelve a p
+
+		assertTrue(theProduct.getActualcost().compareTo(new BigDecimal("5")) == 0);
+		assertTrue(theProduct.getQuantity().equals(10));
+	}
+
+	@Test
+	@Order(4)
+	public void editTransactionHistoryTest() {
+
+		// verifico que cuando edite una transacción con parametros incorrectos capture
+		// una excepción
+		BigDecimal actualCostWrong = new BigDecimal("0");
+		int quantityWrong = 0;
+		transactionHistoryEntity.setActualcost(actualCostWrong);
+		transactionHistoryEntity.setQuantity(quantityWrong);
+		assertThrows(IllegalArgumentException.class, () -> transactionHistoryService
+				.editCorrect(transactionHistoryEntity, transactionHistoryEntity.getProduct().getProductid()));
+
+		// verifico que cuando edite una transacción con parametros correctos se edite
+		// correctamente
+		BigDecimal actualCostRight = new BigDecimal("10.00");
+		int quantityRight = 10;
+		transactionHistoryEntity.setActualcost(actualCostRight);
+		transactionHistoryEntity.setQuantity(quantityRight);
+		transactionHistoryService.editCorrect(transactionHistoryEntity,
+				transactionHistoryEntity.getProduct().getProductid());
+		Transactionhistory th = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid()).get();
+
+		assertEquals(th.getActualcost(), actualCostRight);
+		assertEquals(th.getQuantity(), (Integer) quantityRight);
+	}
+
+	@Test
+	@Order(5)
+	public void saveDocumentTest() {
+		documentEntity.setFilename("Andrea!!");
+		documentEntity.setFileextension("Morgan!");
+		documentService.saveCorrect(documentEntity, productEntity.getProductid());
+
+		Document d = documentService.findById(documentEntity.getDocumentnode()).get();
+		assertEquals(d.getFilename(), documentEntity.getFilename());
+		assertEquals(d.getFileextension(), documentEntity.getFileextension());
+	}
+
+	@Test
+	@Order(6)
+	public void editDocumentTest() {
+		// verifico que cuando edite un documento con parametros incorrectos capture
+		// una excepción
+
+		String filenameIncorrect = "";
+		String fileExtensionIncorrect = "";
+		documentEntity.setFilename(filenameIncorrect);
+		documentEntity.setFileextension(fileExtensionIncorrect);
+		assertThrows(IllegalArgumentException.class,
+				() -> documentService.editCorrect(documentEntity, documentEntity.getProduct().getProductid()));
+
+		// verifico que cuando edite un documento con parametros correctos capture se
+		// edite correctamente
+		String filenamecorrect = "Isabel";
+		String fileExtensioncorrect = "Vaquiperro";
+		documentEntity.setFilename(filenamecorrect);
+		documentEntity.setFileextension(fileExtensioncorrect);
+		documentService.editCorrect(documentEntity, documentEntity.getProduct().getProductid());
+		Document d = documentService.findById(documentEntity.getDocumentnode()).get();
+
+		assertEquals(d.getFileextension(), fileExtensioncorrect);
+		assertEquals(d.getFilename(), filenamecorrect);
+	}
+
+	@Test
+	@Order(7)
+	public void saveProductVendor() {
+		productvendorEntity = new Productvendor();
+		productvendorEntity.setId(1);
+		productvendorEntity.setMaxorderqty(1000);
+		productvendorEntity.setMinorderqty(500);
+		productvendorEntity.setStandardprice(new BigDecimal("1000"));
+		productVendorService.save(productvendorEntity, unitmeasureEntity.getUnitmeasurecode(),
+				productEntity.getProductid(), vendorEntity.getBusinessentityid());
+
+		Productvendor pv = productVendorService.findById(productvendorEntity.getId()).get();
+		assertEquals(pv.getMaxorderqty(), productvendorEntity.getMaxorderqty());
+		assertEquals(pv.getMinorderqty(), productvendorEntity.getMinorderqty());
+
+	}
+
+	@Test
+	@Order(8)
+	public void editProductVendor() {
+		// verifico que cuando edite un productvendor con parametros incorrectos capture
+		// una excepción
+		int maxorderWrong = 200;
+		int minorderWrong = 500;
+		BigDecimal standardPrinceWrong = new BigDecimal("0");
+		productvendorEntity.setMaxorderqty(maxorderWrong);
+		productvendorEntity.setMinorderqty(minorderWrong);
+		productvendorEntity.setStandardprice(standardPrinceWrong);
+
+		assertThrows(IllegalArgumentException.class,
+				() -> productVendorService.edit(productvendorEntity,
+						productEntity.getUnitmeasure1().getUnitmeasurecode(), productEntity.getProductid(),
+						vendorEntity.getBusinessentityid()));
+
+		// verifico que cuando edite un productvendor con parametros correctos capture
+		// una excepción
+		int maxorderRight = 500;
+		int minorderRight = 200;
+		BigDecimal standardPrinceRight = new BigDecimal("100.00");
+		productvendorEntity.setMaxorderqty(maxorderRight);
+		productvendorEntity.setMinorderqty(minorderRight);
+		productvendorEntity.setStandardprice(standardPrinceRight);
+		productVendorService.edit(productvendorEntity, productEntity.getUnitmeasure1().getUnitmeasurecode(),
+				productEntity.getProductid(), vendorEntity.getBusinessentityid());
+		Productvendor pv = productVendorService.findById(productvendorEntity.getId()).get();
+		assertEquals(pv.getMaxorderqty(), maxorderRight);
+		assertEquals(pv.getMinorderqty(), minorderRight);
+		assertEquals(pv.getStandardprice(), standardPrinceRight);
+
+	}
 
 }

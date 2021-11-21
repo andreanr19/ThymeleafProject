@@ -149,6 +149,7 @@ public class DocumentServiceImpl implements DocumentService {
 			Optional<Document> d = documentRepository.findById(document.getDocumentnode());
 
 			if ((document.getFilename().length() < 4)) {
+				throw new IllegalArgumentException("Invalid argument");
 
 			} else if ((document.getFileextension().length() < 3)) {
 				throw new IllegalArgumentException("Invalid argument");
