@@ -272,11 +272,11 @@ class Taller1PruebasApplicationIntegratedTests {
 		transactionHistoryEntity.setActualcost(new BigDecimal("5"));
 		transactionHistoryService.saveCorrect(transactionHistoryEntity, productEntity.getProductid());
 
-		Transactionhistory theProduct = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid())
+		Transactionhistory th = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid())
 				.get(); // me devuelve a p
 
-		assertTrue(theProduct.getActualcost().compareTo(new BigDecimal("5")) == 0);
-		assertTrue(theProduct.getQuantity().equals(10));
+		assertTrue(th.getActualcost().compareTo(new BigDecimal("5")) == 0);
+		assertTrue(th.getQuantity().equals(10));
 	}
 
 	@Test

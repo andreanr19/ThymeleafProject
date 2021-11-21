@@ -380,11 +380,8 @@ class Taller1PruebasApplicationTests {
 	@Order(7)
 	public void saveProductVendorTest() {
 		setUp();
-//		Product theProduct = productService.findById(01);
-//		Unitmeasure um = unitmeasureService.findById(01L);
+
 		Productvendor pv = productvendorService.findById(01).get();
-//		Vendor v = vendorService.findById(01);
-//		Businessentity b = businessEntityService.findById(01);
 		pv.setMinorderqty(10);
 		pv.setMaxorderqty(20);
 		pv.setStandardprice(new BigDecimal("30"));
@@ -395,31 +392,5 @@ class Taller1PruebasApplicationTests {
 		verify(productRepositoryM, VerificationModeFactory.times(1)).findById(01);
 
 	}
-	/*
-	 * // @Test // @Order(8) // public void editProductvendorTest() { // Integer
-	 * maxor = 10; // Integer minor = 20; // BigDecimal standardprice = new
-	 * BigDecimal("0"); // assertThrows(IllegalArgumentException.class, () ->
-	 * productvendorService.editProductvendor(null, null, null, // null, maxor,
-	 * minor, null, null, standardprice, null)); // // Businessentity businessentity
-	 * = new Businessentity(); // // businessentity.setBusinessentityid(0); // int
-	 * bussinessEntityId = businessentity.getBusinessentityid(); // Person person =
-	 * new Person(); // person.setBusinessentityid(bussinessEntityId); //
-	 * businessentity.setPerson(person); // Employee employee = new Employee(); //
-	 * employee.setBusinessentityid(bussinessEntityId); // Unitmeasure um = new
-	 * Unitmeasure(); // um.setUnitmeasurecode("0"); // Product theProduct =
-	 * productService.findById(01).get(); // um.setProducts1(new
-	 * ArrayList<Product>()); // um.addProducts1(theProduct); // // Productvendor pv
-	 * = new Productvendor(); // ProductvendorPK pk = new ProductvendorPK(); //
-	 * pv.setId(pk); //
-	 * when(productvendorRepositoryM.findById(pk)).thenReturn(Optional.of(pv)); //
-	 * // Integer maxorCorrect = 20; // Integer minorCorrect = 10; // BigDecimal
-	 * standardpriceCorrect = new BigDecimal("10"); // // //
-	 * pv.setUnitmeasurecode("0"); // pk.setBusinessentityid(bussinessEntityId); //
-	 * pv.setMinorderqty(minorCorrect); // pv.setMaxorderqty(maxorCorrect); //
-	 * pv.setStandardprice(standardpriceCorrect); // // //
-	 * productvendorService.editProductvendor(pk, null, null, null, maxor, minor,
-	 * null, null, standardpriceCorrect, // um.getUnitmeasurecode()); //
-	 * Productvendor pvtest = productvendorService.findById(pk).get(); //
-	 * assertEquals(pvtest.getMaxorderqty(), maxorCorrect); // } //
-	 */
+	
 }
