@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.icesi.model.Document;
 
@@ -33,6 +34,7 @@ public class DocumentDAO implements IDocumentDAO {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Document document) {
 		entityManager.remove(document);
 	}

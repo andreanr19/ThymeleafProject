@@ -36,7 +36,7 @@
 							th:text="${um.unitmeasurecode + ': ' + um.name}"
 							th:selected="${productvendor.unitmeasurecode==um.unitmeasurecode}">
 						</option>
-					</select> <span th:if="${#fields.hasErrors('unimeasurecode')}" th:errors="*{unitmeasurecode}"
+					</select> <span th:if="${#fields.hasErrors('unitmeasurecode')}" th:errors="*{unitmeasurecode}"
 						class="text-danger"></span>
 				</div>
 				<div class="form-group col-md-6">
