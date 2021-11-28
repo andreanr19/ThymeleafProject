@@ -152,6 +152,9 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
 		if (product == null) {
 			throw new RuntimeException();
+		}else if(th ==null) {
+			throw new RuntimeException();
+
 		} else if (!(transactionhistory.getQuantity() > 0)) {
 			throw new IllegalArgumentException("Quantity should be greater than 0");
 

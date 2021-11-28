@@ -1,5 +1,6 @@
 package co.edu.icesi.testdao;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -132,16 +133,37 @@ public class TransactionhistoryTest {
 		public void editTransactionhistoryTest() {
 			Transactionhistory thToEdit = transactionhistoryService.findById(idTransactionhistoryTest);
 			verify(transactionhistoryDAO).findById(idTransactionhistoryTest);
-			
+
 			Product p = new Product();
 			p.setProductid(2);
 			Optional<Product> optionalProduct = Optional.of(p);
 			when(productDAO.findById(2)).thenReturn(p);
-			
+
 			thToEdit.setProduct(p);
 			when(transactionhistoryDAO.update(thToEdit)).thenReturn(thToEdit);
-			assertDoesNotThrow(()-> transactionhistoryService.editCorrect(thToEdit, p.getProductid()));
+			assertDoesNotThrow(() -> transactionhistoryService.editCorrect(thToEdit, p.getProductid()));
 			verify(transactionhistoryDAO).update(thToEdit);
+		}
+
+		@Test
+		public void editTransactionhistoryNull() {
+			assertThrows(RuntimeException.class, () -> transactionhistoryService.editCorrect(null, idProduct));
+
+		}
+
+		@Test
+		public void editTransactionhistoryWithoutProductTest() {
+			Transactionhistory thToEdit = transactionhistoryService.findById(idTransactionhistoryTest);
+			verify(transactionhistoryDAO).findById(idTransactionhistoryTest);
+
+			Product p = new Product();
+			p.setProductid(2);
+
+			thToEdit.setProduct(p);
+			when(transactionhistoryDAO.update(thToEdit)).thenReturn(thToEdit);
+			assertThrows(RuntimeException.class,
+					() -> transactionhistoryService.editCorrect(thToEdit, p.getProductid()));
+			verify(transactionhistoryDAO, times(0)).update(thToEdit);
 		}
 	}
 
