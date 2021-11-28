@@ -272,8 +272,7 @@ class Taller1PruebasApplicationIntegratedTests {
 		transactionHistoryEntity.setActualcost(new BigDecimal("5"));
 		transactionHistoryService.saveCorrect(transactionHistoryEntity, productEntity.getProductid());
 
-		Transactionhistory th = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid())
-				.get(); // me devuelve a p
+		Transactionhistory th = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid()); // me devuelve a p
 
 		assertTrue(th.getActualcost().compareTo(new BigDecimal("5")) == 0);
 		assertTrue(th.getQuantity().equals(10));
@@ -300,7 +299,7 @@ class Taller1PruebasApplicationIntegratedTests {
 		transactionHistoryEntity.setQuantity(quantityRight);
 		transactionHistoryService.editCorrect(transactionHistoryEntity,
 				transactionHistoryEntity.getProduct().getProductid());
-		Transactionhistory th = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid()).get();
+		Transactionhistory th = transactionHistoryService.findById(transactionHistoryEntity.getTransactionid());
 
 		assertEquals(th.getActualcost(), actualCostRight);
 		assertEquals(th.getQuantity(), (Integer) quantityRight);
@@ -313,7 +312,7 @@ class Taller1PruebasApplicationIntegratedTests {
 		documentEntity.setFileextension("Morgan!");
 		documentService.saveCorrect(documentEntity, productEntity.getProductid());
 
-		Document d = documentService.findById(documentEntity.getDocumentnode()).get();
+		Document d = documentService.findById(documentEntity.getDocumentnode());
 		assertEquals(d.getFilename(), documentEntity.getFilename());
 		assertEquals(d.getFileextension(), documentEntity.getFileextension());
 	}
@@ -338,7 +337,7 @@ class Taller1PruebasApplicationIntegratedTests {
 		documentEntity.setFilename(filenamecorrect);
 		documentEntity.setFileextension(fileExtensioncorrect);
 		documentService.editCorrect(documentEntity, documentEntity.getProduct().getProductid());
-		Document d = documentService.findById(documentEntity.getDocumentnode()).get();
+		Document d = documentService.findById(documentEntity.getDocumentnode());
 
 		assertEquals(d.getFileextension(), fileExtensioncorrect);
 		assertEquals(d.getFilename(), filenamecorrect);

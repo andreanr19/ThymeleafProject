@@ -48,7 +48,7 @@ public class TransactionhistoryController {
 	@GetMapping("/edit/{id}")
 	public String editTransactionhistory(Model model, @PathVariable("id") Integer id) {
 
-		model.addAttribute("trh", transactionhistoryService.findById(id).get());
+		model.addAttribute("trh", transactionhistoryService.findById(id));
 		model.addAttribute("products", productService.findAll());
 		return "transaction-histories/edit";
 	}
@@ -96,7 +96,7 @@ public class TransactionhistoryController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteTransactionhistory(@PathVariable("id") Integer id, Model model) {
-		Transactionhistory trh = transactionhistoryService.findById(id).get();
+		Transactionhistory trh = transactionhistoryService.findById(id);
 		transactionhistoryService.delete(trh);
 		model.addAttribute("transactionhistories", transactionhistoryService.findAll());
 		return "redirect:/transaction-histories";
@@ -105,7 +105,7 @@ public class TransactionhistoryController {
 
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") Integer id) {
-		Transactionhistory trh = transactionhistoryService.findById(id).get();
+		Transactionhistory trh = transactionhistoryService.findById(id);
 
 		model.addAttribute("trh", trh);
 

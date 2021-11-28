@@ -44,7 +44,7 @@ public class DocumentController {
 
 	@GetMapping("/edit/{id}")
 	public String editDocument(Model model, @PathVariable("id") long id) {
-		model.addAttribute("doc", documentService.findById(id).get());
+		model.addAttribute("doc", documentService.findById(id));
 		model.addAttribute("products", productService.findAll());
 		return "documents/edit";
 	}
@@ -89,7 +89,7 @@ public class DocumentController {
 	
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, Model model) {
-		Document document = documentService.findById(id).get();
+		Document document = documentService.findById(id);
 		documentService.delete(document);
 		model.addAttribute("documents", documentService.findAll());
 		return "documents/index";
@@ -97,7 +97,7 @@ public class DocumentController {
 
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") long id) {
-		Document document = documentService.findById(id).get();
+		Document document = documentService.findById(id);
 
 		model.addAttribute("document", document);
 

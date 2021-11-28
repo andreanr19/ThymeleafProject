@@ -292,7 +292,7 @@ class Taller1PruebasApplicationTests {
 
 		// Verificamos que se hayan asignado correctamente los objetos a través de los
 		// servicios y mocks
-		Transactionhistory thtest = transactionHistoryService.findById(01).get();
+		Transactionhistory thtest = transactionHistoryService.findById(01);
 		assertSame(th, thtest);
 		assertSame(theProduct, thtest.getProduct());
 		// Verificamos que los mocks de los repositorios cumplan su función
@@ -314,7 +314,7 @@ class Taller1PruebasApplicationTests {
 	public void editTransactionHistoryTest() {
 
 		setUp();
-		Transactionhistory th = transactionHistoryService.findById(01).get();
+		Transactionhistory th = transactionHistoryService.findById(01);
 		Product p = productService.findById(01);
 		p.setProductid(01);
 		th.setTransactionid(01);
@@ -334,7 +334,7 @@ class Taller1PruebasApplicationTests {
 	@Order(5)
 	public void saveDocumentTest() {
 		setUp();
-		Document d = documentService.findById(01L).get();
+		Document d = documentService.findById(01L);
 		String fileName = "This is the file name";
 		String fileExtensionTest = "This is a test";
 		d.setFilename(fileName);
@@ -342,7 +342,7 @@ class Taller1PruebasApplicationTests {
 
 		documentService.saveCorrect(d, 01);
 
-		Document documenttest = documentService.findById(01L).get();
+		Document documenttest = documentService.findById(01L);
 		assertSame(d, documenttest);
 
 		// Verificamos que los mocks de los repositorios cumplan su función

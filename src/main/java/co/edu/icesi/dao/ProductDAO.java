@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -38,7 +39,16 @@ public class ProductDAO implements IProductDAO {
 
 	@Override
 	public Product findById(Integer productId) {
-		return entityManager.find(Product.class, productId);
+		String jpql = "Select p from Product p where p.productid=:productId";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("productId", productId);
+		Product p = null;
+		try {
+			p = (Product) query.getSingleResult();
+		} catch (NoResultException e) {
+
+		}
+		return p;
 	}
 
 	@Override
@@ -53,7 +63,7 @@ public class ProductDAO implements IProductDAO {
 		Query query = entityManager.createQuery(queryjpql);
 		query.setParameter("sellstartdate", sellstartdate);
 		return query.getResultList();
-		
+
 	}
 
 	@Override
