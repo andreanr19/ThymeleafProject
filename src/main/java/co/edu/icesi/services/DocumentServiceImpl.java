@@ -20,26 +20,25 @@ import co.edu.icesi.repositories.ProductRepositoryInterface;
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
-	//private DocumentRepositoryInterface documentRepository;
+	// private DocumentRepositoryInterface documentRepository;
 	private IDocumentDAO documentDAO;
 
 	private IProductDAO productDAO;
-	//private ProductRepositoryInterface productRepository;
+	// private ProductRepositoryInterface productRepository;
 
 	private ProductDocumentRepositoryInterface productdocumentRepository;
 
 	@Autowired
-	public DocumentServiceImpl(DocumentRepositoryInterface documentRepository,
-			ProductDocumentRepositoryInterface productdocumentRepository, IDocumentDAO documentDAO,
+	public DocumentServiceImpl(ProductDocumentRepositoryInterface productdocumentRepository, IDocumentDAO documentDAO,
 			IProductDAO productDAO) {
-		
-		this.productDAO= productDAO;
+
+		this.productDAO = productDAO;
 		this.productdocumentRepository = productdocumentRepository;
-		this.documentDAO= documentDAO;
+		this.documentDAO = documentDAO;
 	}
 
 	public <S extends Document> S save(S document) {
-		//documentRepository.save(document);
+		// documentRepository.save(document);
 		documentDAO.save(document);
 		return document;
 	}
@@ -63,11 +62,11 @@ public class DocumentServiceImpl implements DocumentService {
 //			Document documentreference = document;
 			System.out.println("******" + document);
 			document = documentDAO.save(document);
-			System.out.println("-----"+ document);
+			System.out.println("-----" + document);
 			ProductdocumentPK pdk = new ProductdocumentPK();
 			Productdocument pd = new Productdocument();
 			pdk.setDocumentnode(document.getDocumentnode());
-			System.out.println("sdajdabjkh "+ document.getDocumentnode());
+			System.out.println("sdajdabjkh " + document.getDocumentnode());
 			pdk.setProductid(product.getProductid());
 			pd.setId(pdk);
 			pd.setDocument(document);
@@ -87,7 +86,7 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	public Document findById(Long id) {
-		//return documentRepository.findById(id);
+		// return documentRepository.findById(id);
 		return documentDAO.findById(id);
 	}
 
@@ -123,8 +122,6 @@ public class DocumentServiceImpl implements DocumentService {
 //		documentRepository.deleteById(id);
 //	}
 
-
-
 	public void editCorrect(Document document, Integer productId) {
 		Product product = productDAO.findById(productId);
 
@@ -139,7 +136,7 @@ public class DocumentServiceImpl implements DocumentService {
 			} else if ((document.getFileextension().length() < 3)) {
 				throw new IllegalArgumentException("Invalid argument");
 
-			} else if (d ==null) {
+			} else if (d == null) {
 				throw new RuntimeException();
 			} else {
 				Document docentity = d;
@@ -151,7 +148,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 //				docentity.getProductdocuments().get(docentity.getProductdocuments().size() - 1)
 //						.setProduct(product.get());
-				docentity = documentDAO.save(docentity);
+				docentity = documentDAO.update(docentity);
 				docentity.setModifieddate(actualdate);
 				System.out.println(docentity.getModifieddate());
 				ProductdocumentPK pdk = new ProductdocumentPK();
