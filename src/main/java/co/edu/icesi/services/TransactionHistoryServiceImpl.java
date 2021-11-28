@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import co.edu.icesi.dao.IProductDAO;
@@ -62,6 +63,7 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 		return transactionhistory;
 	}
 
+	@Transactional
 	public void saveCorrect(Transactionhistory transactionhistory, Integer productId) {
 		// Optional<Product> product = productRepository.findById(productId);
 		Product product = productDAO.findById(productId);
@@ -141,6 +143,7 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 //		transactionHistoryRepository.deleteAll();
 //	}
 
+	@Transactional
 	public void editCorrect(Transactionhistory transactionhistory, Integer productId) {
 		Product product = productDAO.findById(productId);
 

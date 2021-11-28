@@ -14,7 +14,7 @@ import co.edu.icesi.model.Product;
 
 @Repository
 @Scope("singleton")
-public class CustomQueries {
+public class CustomQueries implements ICustomQueriesDAO{
 
 	@PersistenceContext
 	private EntityManager entityManager;

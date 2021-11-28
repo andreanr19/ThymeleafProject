@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.icesi.dao.IDocumentDAO;
 import co.edu.icesi.dao.IProductDAO;
@@ -42,7 +43,7 @@ public class DocumentServiceImpl implements DocumentService {
 		documentDAO.save(document);
 		return document;
 	}
-
+	@Transactional
 	public void saveCorrect(Document document, Integer productId) {
 		Product product = productDAO.findById(productId);
 		if (document == null) {
@@ -122,6 +123,7 @@ public class DocumentServiceImpl implements DocumentService {
 //		documentRepository.deleteById(id);
 //	}
 
+	@Transactional
 	public void editCorrect(Document document, Integer productId) {
 		Product product = productDAO.findById(productId);
 

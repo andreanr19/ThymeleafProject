@@ -121,6 +121,7 @@ public class ProductServiceImpl implements ProductService {
 //		productRepository.deleteAll();
 //	}
 
+	@Transactional
 	public void editCorrect(Product product, Integer prCategoryId, Integer prSCategoryId, Long unitMId) {
 		Optional<Productcategory> productcategory = productCategoryRepository.findById(prCategoryId);
 		Optional<Productsubcategory> productsubcategory = productSubCategoryRepository.findById(prSCategoryId);
@@ -130,7 +131,6 @@ public class ProductServiceImpl implements ProductService {
 			throw new RuntimeException();
 		} else {
 //			Optional<Product> p = productRepository.findById(product.getProductid());
-			Product productEntity = productDAO.findById(product.getProductid());
 			if (productcategory.isEmpty()) {
 				throw new RuntimeException("Product category is empty");
 
@@ -147,6 +147,8 @@ public class ProductServiceImpl implements ProductService {
 				throw new RuntimeException("Unit measure is empty");
 			} else {
 //				Product productEntity = p.get();
+				Product productEntity = productDAO.findById(product.getProductid());
+
 				productEntity.setProductsubcategory(productsubcategory.get());
 				productEntity.getProductsubcategory().setProductcategory(productcategory.get());
 				productEntity.setUnitmeasure1(unitmeasure.get());
@@ -161,12 +163,12 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 	}
-	
-	public List<Product> findByProductSellstardate(Timestamp sellstartdate){
+
+	public List<Product> findByProductSellstardate(Timestamp sellstartdate) {
 		return productDAO.findBySellstartdate(sellstartdate);
 	}
 
-	public List<Product> findByProductSellenddate(Timestamp sellenddate){
+	public List<Product> findByProductSellenddate(Timestamp sellenddate) {
 		return productDAO.findBySellstartdate(sellenddate);
 	}
 }
