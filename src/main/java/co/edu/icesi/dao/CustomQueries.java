@@ -28,9 +28,9 @@ public class CustomQueries implements ICustomQueriesDAO{
 	public List<Product> findProductByDate(Timestamp sellstartdate, Timestamp sellenddate) {
 
 		String jpql = "SELECT p FROM Product p WHERE p.sellstartdate >= :sellstartdate AND p.sellenddate <= :sellenddate AND(Select count(t) from Transactionhistory t"
-				+ " WHERE t.product.productid = p.productid AND t.transactiondate >= :sellstardate and t.transactiondate <= :sellenddate) >0 ORDER BY p.name ASC";
+				+ " WHERE t.product.productid = p.productid AND t.transactiondate >= :sellstartdate and t.transactiondate <= :sellenddate) >0 ORDER BY p.name ASC";
 		Query query = entityManager.createQuery(jpql);
-		query.setParameter("sellestardate", sellstartdate);
+		query.setParameter("sellstartdate", sellstartdate);
 		query.setParameter("sellenddate", sellenddate);
 		return query.getResultList();
 	}
