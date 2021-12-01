@@ -87,6 +87,7 @@ public class CustomQueriesTest {
 	 */
 	@Test
 	@Order(1)
+	@Transactional
 	public void findProductByDate() {
 		// Init product subcategory
 		Productsubcategory ps1 = new Productsubcategory();
@@ -129,7 +130,7 @@ public class CustomQueriesTest {
 
 			Product product2 = new Product();
 			product2.setClass_("Car");
-			product2.setName("Car");
+			product2.setName("Automovil");
 			product2.setColor("Red");
 			product2.setProductnumber("2");
 			product2.setDaystomanufacture(4);
@@ -197,11 +198,17 @@ public class CustomQueriesTest {
 			long timeFinal = finalDate.getTime();
 			Timestamp sellstartTest = new Timestamp(timeInitial);
 			Timestamp sellendTest = new Timestamp(timeFinal);
-			List<Product> productList = customqueriesDAO.findProductByDate(sellstartTest, sellendTest);
+			List<Product> productList = customqueriesDAO.findProductByDate2(sellstartTest, sellendTest);
 
+			//para verificar que  la lista no esté nula
 			assertNotNull(productList);
+			// como el producto 3 no cumple con las condiciones entonces no debería estar en la lista
+			assertFalse(productList.contains(product3));
+			
+			assertTrue(productList.contains(product2));
+			assertTrue(productList.contains(product1));
 
-			//assertFalse(productList.contains(product3));
+
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

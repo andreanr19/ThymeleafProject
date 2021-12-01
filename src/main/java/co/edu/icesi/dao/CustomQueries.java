@@ -14,7 +14,7 @@ import co.edu.icesi.model.Product;
 
 @Repository
 @Scope("singleton")
-public class CustomQueries implements ICustomQueriesDAO{
+public class CustomQueries implements ICustomQueriesDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -27,8 +27,17 @@ public class CustomQueries implements ICustomQueriesDAO{
 	 */
 	public List<Product> findProductByDate(Timestamp sellstartdate, Timestamp sellenddate) {
 
-		String jpql = "SELECT p FROM Product p WHERE p.sellstartdate >= :sellstartdate AND p.sellenddate <= :sellenddate AND(Select count(t) from Transactionhistory t"
-				+ " WHERE t.product.productid = p.productid AND t.transactiondate >= :sellstartdate and t.transactiondate <= :sellenddate) >0 ORDER BY p.name ASC";
+		String jpql = "SELECT p FROM Product p WHERE p.sellstartdate >= :sellstartdate AND p.sellenddate <= :sellenddate AND (Select count(t) from Transactionhistory t"
+				+ " WHERE t.product.productid = p.productid AND t.transactiondate >= :sellstartdate AND t.transactiondate <= :sellenddate) > 1 ORDER BY p.name ASC";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("sellstartdate", sellstartdate);
+		query.setParameter("sellenddate", sellenddate);
+		return query.getResultList();
+	}
+
+	public List<Product> findProductByDate2(Timestamp sellstartdate, Timestamp sellenddate) {
+
+		String jpql = "SELECT p FROM Product p, Transactionhistory t WHERE t.product.productid = p.productid AND p.sellstartdate >= :sellstartdate AND p.sellenddate <= :sellenddate ORDER BY p.name ASC";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("sellstartdate", sellstartdate);
 		query.setParameter("sellenddate", sellenddate);

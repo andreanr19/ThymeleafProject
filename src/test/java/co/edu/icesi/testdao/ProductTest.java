@@ -70,7 +70,7 @@ public class ProductTest {
 	private static Integer idProductTest;
 
 	@BeforeAll
-	public static void setUp() throws ParseException {
+	public static void setUpProduct() throws ParseException {
 		productService = new ProductServiceImpl(productDAO, productcategoryRepository, productsubcategoryRepository,
 				unitmeasureRepository);
 		productsubcategory = new Productsubcategory();
