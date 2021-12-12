@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JPA-Inject"
+		transaction-type="RESOURCE_LOCAL">
+		<class>co.edu.icesi.model.Product"</class>
+		<class>co.edu.icesi.model.Address</class>
+		<class>co.edu.icesi.model.Addresstype</class>
+		<class>co.edu.icesi.model.Billofmaterial</class>
+		<class>co.edu.icesi.model.Businessentity</class>
+		<class>co.edu.icesi.model.Businessentityaddress</class>
+		<class>co.edu.icesi.model.BusinessentityaddressPK</class>
+		<class>co.edu.icesi.model.Businessentitycontact</class>
+		<class>co.edu.icesi.model.BusinessentitycontactPK</class>
+		<class>co.edu.icesi.model.Contacttype</class>
+		<class>co.edu.icesi.model.Countryregion</class>
+		<class>co.edu.icesi.model.Countryregioncurrency</class>
+		<class>co.edu.icesi.model.CountryregioncurrencyPK</class>
+		<class>co.edu.icesi.model.Creditcard</class>
+		<class>co.edu.icesi.model.Culture</class>
+		<class>co.edu.icesi.model.Currency</class>
+		<class>co.edu.icesi.model.Currencyrate</class>
+		<class>co.edu.icesi.model.Customer</class>
+		<class>co.edu.icesi.model.Department</class>
+		<class>co.edu.icesi.model.Document</class>
+		<class>co.edu.icesi.model.Emailaddress</class>
+		<class>co.edu.icesi.model.EmailaddressPK</class>
+		<class>co.edu.icesi.model.Employee</class>
+		<class>co.edu.icesi.model.Employeedepartmenthistory</class>
+		<class>co.edu.icesi.model.EmployeedepartmenthistoryPK</class>
+		<class>co.edu.icesi.model.Employeepayhistory</class>
+		<class>co.edu.icesi.model.EmployeepayhistoryPK</class>
+		<class>co.edu.icesi.model.Illustration</class>
+		<class>co.edu.icesi.model.Jobcandidate</class>
+		<class>co.edu.icesi.model.Location</class>
+		<class>co.edu.icesi.model.Password</class>
+		<class>co.edu.icesi.model.Person</class>
+		<class>co.edu.icesi.model.Personcreditcard</class>
+		<class>co.edu.icesi.model.PersoncreditcardPK</class>
+		<class>co.edu.icesi.model.Personphone</class>
+		<class>co.edu.icesi.model.PersonphonePK</class>
+		<class>co.edu.icesi.model.Phonenumbertype</class>
+		<class>co.edu.icesi.model.Productcategory</class>
+		<class>co.edu.icesi.model.Productcosthistory</class>
+		<class>co.edu.icesi.model.ProductcosthistoryPK</class>
+		<class>co.edu.icesi.model.Productdescription</class>
+		<class>co.edu.icesi.model.Productdocument</class>
+		<class>co.edu.icesi.model.ProductdocumentPK</class>
+		<class>co.edu.icesi.model.Productinventory</class>
+		<class>co.edu.icesi.model.ProductinventoryPK</class>
+		<class>co.edu.icesi.model.Productlistpricehistory</class>
+		<class>co.edu.icesi.model.ProductlistpricehistoryPK</class>
+		<class>co.edu.icesi.model.Productmodel</class>
+		<class>co.edu.icesi.model.Productmodelillustration</class>
+		<class>co.edu.icesi.model.ProductmodelillustrationPK</class>
+		<class>co.edu.icesi.model.Productmodelproductdescriptionculture</class>
+		<class>co.edu.icesi.model.ProductmodelproductdescriptionculturePK</class>
+		<class>co.edu.icesi.model.Productphoto</class>
+		<class>co.edu.icesi.model.Productproductphoto</class>
+		<class>co.edu.icesi.model.ProductproductphotoPK</class>
+		<class>co.edu.icesi.model.Productreview</class>
+		<class>co.edu.icesi.model.Productsubcategory</class>
+		<class>co.edu.icesi.model.Productvendor</class>
+		<class>co.edu.icesi.model.ProductvendorPK</class>
+		<class>co.edu.icesi.model.Purchaseorderdetail</class>
+		<class>co.edu.icesi.model.PurchaseorderdetailPK</class>
+		<class>co.edu.icesi.model.Purchaseorderheader</class>
+		<class>co.edu.icesi.model.Salesorderdetail</class>
+		<class>co.edu.icesi.model.SalesorderdetailPK</class>
+		<class>co.edu.icesi.model.Salesorderheader</class>
+		<class>co.edu.icesi.model.Salesorderheadersalesreason</class>
+		<class>co.edu.icesi.model.SalesorderheadersalesreasonPK</class>
+		<class>co.edu.icesi.model.Salesperson</class>
+		<class>co.edu.icesi.model.Salespersonquotahistory</class>
+		<class>co.edu.icesi.model.SalespersonquotahistoryPK</class>
+		<class>co.edu.icesi.model.Salesreason</class>
+		<class>co.edu.icesi.model.Salestaxrate</class>
+		<class>co.edu.icesi.model.Salesterritory</class>
+		<class>co.edu.icesi.model.Salesterritoryhistory</class>
+		<class>co.edu.icesi.model.SalesterritoryhistoryPK</class>
+		<class>co.edu.icesi.model.Scrapreason</class>
+		<class>co.edu.icesi.model.Shift</class>
+		<class>co.edu.icesi.model.Shipmethod</class>
+		<class>co.edu.icesi.model.Shoppingcartitem</class>
+		<class>co.edu.icesi.model.Specialoffer</class>
+		<class>co.edu.icesi.model.Specialofferproduct</class>
+		<class>co.edu.icesi.model.SpecialofferproductPK</class>
+		<class>co.edu.icesi.model.Stateprovince</class>
+		<class>co.edu.icesi.model.Store</class>
+		<class>co.edu.icesi.model.Transactionhistory</class>
+		<class>co.edu.icesi.model.Transactionhistoryarchive</class>
+		<class>co.edu.icesi.model.Unitmeasure</class>
+		<class>co.edu.icesi.model.Vendor</class>
+		<class>co.edu.icesi.model.Workorder</class>
+		<class>co.edu.icesi.model.Workorderrouting</class>
+		<class>co.edu.icesi.model.WorkorderroutingPK</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://localhost:5433/pg_estud" />
+			<property name="javax.persistence.jdbc.user"
+				value="postgres" />
+			<property name="javax.persistence.jdbc.password"
+				value="1920" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="javax.persistence.jdbc.driver"
+				value="org.postgresql.Driver" />
+
+		</properties>
+
+	</persistence-unit>
+</persistence>

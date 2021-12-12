@@ -7,24 +7,36 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/pg_estud" />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="org.postgresql.Driver" />
+		<property name="jdbc-url"
+			value="jdbc:postgresql://localhost:5433/pg_estud" />
 		<property name="username" value="postgres" />
-		<property name="password" value="toor" />
+		<property name="password" value="1920" />
 	</bean>
 
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="demoJPA-Inject"/>
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="JPA-Inject" />
 	</bean>
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"
+			ref="entityManagerFactory" />
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	<context:component-scan base-package="co" scoped-proxy="interfaces" />
-	
-	
-    <bean class="co.edu.icesi.demo.dao.TAlumnoDao"/>
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+	<context:component-scan base-package="co"
+		scoped-proxy="interfaces" />
+
+
+	<bean class="co.edu.icesi.dao.DocumentDAO" />
+	<bean class="co.edu.icesi.dao.ProductDAO" />
+	<bean class="co.edu.icesi.dao.TrasactionhistoryDAO" />
+
+
 </beans>
