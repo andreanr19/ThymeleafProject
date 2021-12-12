@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the unitmeasure database table.
  *
@@ -31,14 +33,17 @@ public class Unitmeasure implements Serializable {
 	private String name;
 
 	// bi-directional many-to-one association to Billofmaterial
+	@JsonIgnore
 	@OneToMany(mappedBy = "unitmeasure")
 	private List<Billofmaterial> billofmaterials;
 
 	// bi-directional many-to-one association to Product
+	@JsonIgnore
 	@OneToMany(mappedBy = "unitmeasure1")
 	private List<Product> products1;
 
 	// bi-directional many-to-one association to Product
+	@JsonIgnore
 	@OneToMany(mappedBy = "unitmeasure2")
 	private List<Product> products2;
 

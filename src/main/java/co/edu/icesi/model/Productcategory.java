@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the productcategory database table.
  *
@@ -33,6 +35,7 @@ public class Productcategory implements Serializable {
 	private Integer rowguid;
 
 	// bi-directional many-to-one association to Productsubcategory
+	@JsonIgnore
 	@OneToMany(mappedBy = "productcategory")
 	private List<Productsubcategory> productsubcategories;
 

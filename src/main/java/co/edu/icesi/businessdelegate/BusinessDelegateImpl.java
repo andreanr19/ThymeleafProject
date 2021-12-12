@@ -3,6 +3,7 @@ package co.edu.icesi.businessdelegate;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -22,8 +23,9 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public static final String REST_URL = "http://localhost:8080";
 	private RestTemplate restTemplate;
 
-	public BusinessDelegateImpl(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
+	
+	public BusinessDelegateImpl() {
+		this.restTemplate = new RestTemplate();
 	}
 
 	// --------------------

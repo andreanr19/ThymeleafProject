@@ -24,6 +24,8 @@ import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the product database table.
  *
@@ -88,10 +90,12 @@ public class Product implements Serializable {
 	private BigDecimal weight;
 
 	// bi-directional many-to-one association to Billofmaterial
+	@JsonIgnore
 	@OneToMany(mappedBy = "product1") 
 	private List<Billofmaterial> billofmaterials1;
 
 	// bi-directional many-to-one association to Billofmaterial
+	@JsonIgnore
 	@OneToMany(mappedBy = "product2")
 	private List<Billofmaterial> billofmaterials2;
 
@@ -118,34 +122,42 @@ public class Product implements Serializable {
 	private Unitmeasure unitmeasure2;
 
 	// bi-directional many-to-one association to Productcosthistory
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Productcosthistory> productcosthistories;
 
 	// bi-directional many-to-one association to Productdocument
+	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade=CascadeType.REMOVE)
 	private List<Productdocument> productdocuments;
 
 	// bi-directional many-to-one association to Productinventory
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Productinventory> productinventories;
 
 	// bi-directional many-to-one association to Productlistpricehistory
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Productlistpricehistory> productlistpricehistories;
 
 	// bi-directional many-to-one association to Productproductphoto
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Productproductphoto> productproductphotos;
 
 	// bi-directional many-to-one association to Productreview
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Productreview> productreviews;
 
 	// bi-directional many-to-one association to Transactionhistory
+	@JsonIgnore
 	@OneToMany(mappedBy = "product",cascade=CascadeType.REMOVE)
 	private List<Transactionhistory> transactionhistories;
 
 	// bi-directional many-to-one association to Workorder
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Workorder> workorders;
 
