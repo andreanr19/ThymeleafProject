@@ -7,6 +7,6 @@ spring:
         platform: postgres
         url: jdbc:postgresql://localhost:5432/pg_estud
         username: postgres
-        password: microsoft  
+        password: postgres  
         driverClassName: org.postgresql.Driver
 
