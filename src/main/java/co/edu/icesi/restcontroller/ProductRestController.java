@@ -2,6 +2,7 @@ package co.edu.icesi.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,15 @@ public class ProductRestController {
 		this.productService = productService;
 	}
 
-	@GetMapping("/products/")
+	@GetMapping("/productsRest/")
 	public Iterable<Product> getProducts() {
 		return productService.findAll();
 	}
 
+	@GetMapping("/productsRest/{productid}")
+	public Product productFindById(@PathVariable("productid") Integer productid) {
+		return productService.findById(productid);
+	}
 	@PostMapping("/products")
 	public Product saveProduct(@RequestBody Product product,
 			@RequestParam(value = "productcategoryid", required = true) Integer productcategoryid,
@@ -36,7 +41,8 @@ public class ProductRestController {
 
 		productService.saveCorrect(product, productcategoryid, productsubcategoryid, unitmeasurecode);
 		
-		return new Product();
+		return product;
 	}
+
 
 }
