@@ -1,12 +1,12 @@
 spring:
     jpa:
         database: POSTGRESQL
-        show-sql: true
+        show-sql: false
         hibernate.ddl-auto: update
     datasource:
         platform: postgres
-        url: jdbc:postgresql://localhost:5433/pg_estud
+        url: jdbc:postgresql://localhost:5432/pg_estud
         username: postgres
-        password: 1920  
+        password: microsoft  
         driverClassName: org.postgresql.Driver
 
