@@ -23,7 +23,7 @@ public class ProductvendorRestController {
 		this.productvendorService=productvendorService;
 	}
 	
-	@GetMapping("/productvendorsRest")
+	@GetMapping("/productvendorsRest/")
 	public Iterable<Productvendor> getProductvendors(){
 		return productvendorService.findAll();
 	}
