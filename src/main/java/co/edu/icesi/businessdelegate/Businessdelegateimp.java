@@ -13,26 +13,32 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import co.edu.icesi.model.Document;
-import co.edu.icesi.model.Product;
+import co.edu.icesi.frontmodel.Product;
+import co.edu.icesi.frontmodel.Productcategory;
+import co.edu.icesi.frontmodel.Productsubcategory;
 import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
+import co.edu.icesi.frontmodel.Unitmeasure;
 
 @Component
-public class Businessdelegateimp {
+public class Businessdelegateimp implements BusinessDelegate {
 
 	private final static String URL = "http://localhost:8080/api";
 	private final static String PRODUCT_URL = URL + "/products/";
+	private final static String PRODUCTCATEGORY_URL = URL + "/categories/";
 	private final static String TRANSACTIONHISTORY_URL = URL + "/transaction-histories/";
 	private final static String DOCUMENT_URL = URL + "/documents/";
 	private final static String PRODUCTVENDORS_URL = URL + "/product-vendors/";
+	private final static String PRODUCTSUBCATEGORY_URL = URL + "/productsubcategories/";
+	private final static String UNITMEASURE_URL = URL + "/unitmeasures/";
 
 	private RestTemplate restTemplate;
 
 	public Businessdelegateimp() {
 		this.restTemplate = new RestTemplate();
-		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
+		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
 		messageConverters.add(converter);
 		this.restTemplate.setMessageConverters(messageConverters);
 	}
@@ -64,6 +70,45 @@ public class Businessdelegateimp {
 
 	public void editProduct(Product product) {
 		restTemplate.put(PRODUCT_URL, product, Product.class);
+	}
+
+	// ==================
+	// PRODUCTCATEGORY
+	// ==================
+	public List<Productcategory> findAllProductcategories() {
+		Productcategory[] array = restTemplate.getForObject(PRODUCTCATEGORY_URL, Productcategory[].class);
+		return Arrays.asList(array);
+	}
+
+	public Productcategory findByProductcategoryId(Integer id) {
+		return restTemplate.getForObject(PRODUCTCATEGORY_URL+id, Productcategory.class);
+		
+	}
+	
+	public Productcategory saveProductcategory(Productcategory category) {
+        HttpEntity<Productcategory> request = new HttpEntity<>(category);
+        return restTemplate.postForObject(PRODUCT_URL, request, Productcategory.class);
+    }
+	public void deleteProductcategory(Productcategory category) {
+        restTemplate.delete(PRODUCTCATEGORY_URL+category.getProductcategoryid());
+    }
+	public void editCategory(Productcategory category) {
+		restTemplate.put(PRODUCTCATEGORY_URL, category, Productcategory.class);
+	}
+	// ==================
+	// PRODUCTSUBCATEGORY
+	// ==================
+	public List<Productsubcategory> findAllProductsubcategories() {
+		Productsubcategory[] array = restTemplate.getForObject(PRODUCTSUBCATEGORY_URL, Productsubcategory[].class);
+		return Arrays.asList(array);
+	}
+
+	// ==================
+	// UNITMEASURE
+	// ==================
+	public List<Unitmeasure> findAllUnitmeasures() {
+		Unitmeasure[] array = restTemplate.getForObject(UNITMEASURE_URL, Unitmeasure[].class);
+		return Arrays.asList(array);
 	}
 
 	// ==================

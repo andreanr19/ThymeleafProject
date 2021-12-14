@@ -12,7 +12,7 @@ import co.edu.icesi.model.Unitmeasure;
 import co.edu.icesi.repositories.UnitmeasureRepositoryInterface;
 
 @Controller
-@RequestMapping("/unitmeasures")
+@RequestMapping("unitmeasures")
 public class UnitmeasureController {
 
 	UnitmeasureRepositoryInterface unitmeasureRepository;

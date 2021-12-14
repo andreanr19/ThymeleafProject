@@ -1,5 +1,6 @@
 package co.edu.icesi.security;
 
+import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,9 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests()
 				// .antMatchers("/**").permitAll()
 				.antMatchers("/login/**").permitAll().antMatchers("/logout/**").permitAll()
+				.and().authorizeRequests()
+				.antMatchers("/api/**")
+				.permitAll()
 				// products
 				.antMatchers("/products*").permitAll().antMatchers("/products/add/**")
 				.hasRole(Usertype.ADMINISTRATOR.toString()).antMatchers("/products/edit/**")
+				
+				.hasRole(Usertype.ADMINISTRATOR.toString())
+				.antMatchers("/categories*").permitAll().antMatchers("/categories/add/**")
+				.hasRole(Usertype.ADMINISTRATOR.toString()).antMatchers("/categories/edit/**")
 				.hasRole(Usertype.ADMINISTRATOR.toString())
 				// product-vendors
 				.antMatchers("/product-vendors*").permitAll().antMatchers("/product-vendors/add/**")
