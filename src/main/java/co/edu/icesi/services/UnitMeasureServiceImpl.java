@@ -19,12 +19,29 @@ public class UnitMeasureServiceImpl implements UnitMeasureService {
 		return unitmeasureRepository.save(unitmeasure);
 
 	}
+
 	public Unitmeasure findById(long id) {
 		return unitmeasureRepository.findById(id).get();
 	}
+
 	@Override
 	public Iterable<Unitmeasure> findAll() {
 		return unitmeasureRepository.findAll();
+	}
+
+	public void editUnitmeasure(Unitmeasure um) {
+		Unitmeasure umEntity = findById(um.getUnitmeasurecode());
+		if(umEntity==null) {
+			throw new RuntimeException();
+			
+		}else {
+			umEntity.setName(um.getName());
+			save(umEntity);
+		}
+	}
+	
+	public void delete(Unitmeasure um) {
+		unitmeasureRepository.delete(um);
 	}
 
 }

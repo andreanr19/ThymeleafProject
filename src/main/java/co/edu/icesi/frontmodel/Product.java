@@ -47,6 +47,44 @@ import co.edu.icesi.model.Workorder;
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private Integer productsubcategoryid;
+
+	private Integer productcategoryid;
+	private long unitmeasurecode;
+
+	public Integer getProductsubcategoryid() {
+		return productsubcategoryid;
+	}
+
+	
+
+	public Integer getProductcategoryid() {
+		return productcategoryid;
+	}
+
+
+
+	public void setProductcategoryid(Integer productcategoryid) {
+		this.productcategoryid = productcategoryid;
+	}
+
+
+
+	public long getUnitmeasurecode() {
+		return unitmeasurecode;
+	}
+
+
+
+	public void setUnitmeasurecode(long unitmeasurecode) {
+		this.unitmeasurecode = unitmeasurecode;
+	}
+
+
+
+	public void setProductsubcategoryid(Integer productsubcategoryid) {
+		this.productsubcategoryid = productsubcategoryid;
+	}
 
 	private Integer productid;
 
@@ -110,19 +148,16 @@ public class Product implements Serializable {
 
 	private Productmodel productmodel;
 
-	@NotNull(groups = Add.class)
 	// bi-directional many-to-one association to Productsubcategory
 
 	private Productsubcategory productsubcategory;
 
-	@NotNull(groups = Add.class)
 	// bi-directional many-to-one association to Unitmeasure
-	@ManyToOne
+	
 	private Unitmeasure unitmeasure1;
 
 	// bi-directional many-to-one association to Unitmeasure
-	@ManyToOne
-	@JoinColumn(name = "weightunitmeasurecode")
+	
 	private Unitmeasure unitmeasure2;
 
 	// bi-directional many-to-one association to Productcosthistory

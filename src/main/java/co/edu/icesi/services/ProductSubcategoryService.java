@@ -40,5 +40,5 @@ public interface ProductSubcategoryService {
 	
 	public void deleteAll();
 	
-	public void editProductsubcategory(Integer id, Timestamp modifieddate,  String name, Integer rowguid);
+	public void editProductsubcategory(Productsubcategory ps);
 }

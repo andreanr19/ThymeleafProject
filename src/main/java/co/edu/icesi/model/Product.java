@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -43,9 +44,42 @@ public class Product implements Serializable {
 	@Column(name = "class")
 	private String class_;
 
+	@Transient
+	private Integer productsubcategoryid;
+
+	@Transient
+	private Integer productcategoryid;
+
+	public Integer getProductcategoryid() {
+		return productcategoryid;
+	}
+
+	public void setProductcategoryid(Integer productcategoryid) {
+		this.productcategoryid = productcategoryid;
+	}
+
+	public long getUnitmeasurecode() {
+		return unitmeasurecode;
+	}
+
+	public void setUnitmeasurecode(long unitmeasurecode) {
+		this.unitmeasurecode = unitmeasurecode;
+	}
+
+	@Transient
+	private long unitmeasurecode;
+
+	public Integer getProductsubcategoryid() {
+		return productsubcategoryid;
+	}
+
+	public void setProductsubcategoryid(Integer productsubcategoryid) {
+		this.productsubcategoryid = productsubcategoryid;
+	}
+
 	private String color;
 
-	@NotNull(groups=Add.class)
+	@NotNull(groups = Add.class)
 	@Min(value = 1, message = "days to manufacture should be greather than 0", groups = Add.class)
 	private Integer daystomanufacture;
 
@@ -59,12 +93,12 @@ public class Product implements Serializable {
 
 	private Timestamp modifieddate;
 
-	@NotNull(message="name shouldn't be null", groups=Add.class)
+	@NotNull(message = "name shouldn't be null", groups = Add.class)
 	private String name;
 
 	private String productline;
 
-	@NotNull(groups=Add.class)
+	@NotNull(groups = Add.class)
 	@Min(value = 1, message = "product number should be greather than 0", groups = Add.class)
 	private String productnumber;
 
@@ -74,11 +108,11 @@ public class Product implements Serializable {
 
 	private Integer safetystocklevel;
 
-	//@DateTimeFormat(pattern = "yyyy-MM-dd")
-	
+	// @DateTimeFormat(pattern = "yyyy-MM-dd")
+
 	private Timestamp sellenddate;
-	
-	//@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	// @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Timestamp sellstartdate;
 
 	private String size;
@@ -91,7 +125,7 @@ public class Product implements Serializable {
 
 	// bi-directional many-to-one association to Billofmaterial
 	@JsonIgnore
-	@OneToMany(mappedBy = "product1") 
+	@OneToMany(mappedBy = "product1")
 	private List<Billofmaterial> billofmaterials1;
 
 	// bi-directional many-to-one association to Billofmaterial
@@ -128,7 +162,7 @@ public class Product implements Serializable {
 
 	// bi-directional many-to-one association to Productdocument
 	@JsonIgnore
-	@OneToMany(mappedBy = "product", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
 	private List<Productdocument> productdocuments;
 
 	// bi-directional many-to-one association to Productinventory
@@ -153,7 +187,7 @@ public class Product implements Serializable {
 
 	// bi-directional many-to-one association to Transactionhistory
 	@JsonIgnore
-	@OneToMany(mappedBy = "product",cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
 	private List<Transactionhistory> transactionhistories;
 
 	// bi-directional many-to-one association to Workorder

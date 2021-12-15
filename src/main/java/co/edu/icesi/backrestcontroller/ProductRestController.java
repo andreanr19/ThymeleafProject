@@ -16,13 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.icesi.dao.ProductDAO;
 import co.edu.icesi.model.Product;
+import co.edu.icesi.model.Productsubcategory;
+import co.edu.icesi.services.ProductCategoryService;
+import co.edu.icesi.services.ProductSubcategoryService;
+import co.edu.icesi.services.UnitMeasureService;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/api/products")
+@Log4j2
 public class ProductRestController {
 
 	@Autowired
 	private ProductDAO productDAO;
+
+	@Autowired
+	private ProductSubcategoryService productsubcategoryService;
+
+	@Autowired
+	private ProductCategoryService productCategoryService;
+
+	@Autowired
+	private UnitMeasureService unitmeasureService;
 
 	@GetMapping
 	public Iterable<Product> getProducts() {
@@ -34,8 +49,13 @@ public class ProductRestController {
 		return productDAO.findById(productid);
 	}
 
-	@PostMapping
+	@PostMapping("/add")
 	public void saveProduct(@RequestBody Product product) {
+		product.setProductsubcategory(productsubcategoryService.findById(product.getProductsubcategoryid()).get());
+		product.getProductsubcategory().setProductcategory(
+				productCategoryService.findById(product.getProductsubcategory().getProductsubcategoryid()).get());
+		product.setUnitmeasure1(unitmeasureService.findById(product.getUnitmeasurecode()));
+		log.info("DATOS DEL PRODUCTO " + product.toString());
 
 		productDAO.save(product);
 

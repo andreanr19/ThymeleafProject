@@ -2,13 +2,8 @@ package co.edu.icesi.businessdelegate;
 
 import java.util.List;
 
-import co.edu.icesi.model.Document;
-import co.edu.icesi.frontmodel.Product;
-import co.edu.icesi.frontmodel.Productcategory;
-import co.edu.icesi.frontmodel.Productsubcategory;
-import co.edu.icesi.model.Productvendor;
-import co.edu.icesi.model.Transactionhistory;
-import co.edu.icesi.frontmodel.Unitmeasure;
+import co.edu.icesi.frontmodel.*;
+
 
 public interface BusinessDelegate {
 
@@ -23,6 +18,7 @@ public interface BusinessDelegate {
 	public void editProduct(Product product);
 
 	public List<Productsubcategory> findAllProductsubcategories();
+	public Productsubcategory findByProductsubcategoryId(Integer id);
 
 	public List<Productcategory> findAllProductcategories();
 	public Productcategory findByProductcategoryId(Integer id);
@@ -31,7 +27,7 @@ public interface BusinessDelegate {
 	public void editCategory(Productcategory category);
 
 	public List<Unitmeasure> findAllUnitmeasures();
-
+	public Unitmeasure findByUnitmeasureId(long id);
 	public Transactionhistory transactionhistory_get(Integer transactionid);
 
 	public List<Transactionhistory> transactionhistory_FindAll();

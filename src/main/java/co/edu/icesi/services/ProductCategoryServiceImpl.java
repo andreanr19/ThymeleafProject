@@ -72,7 +72,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 		productCategoryRepository.deleteAll();
 	}
 	
-	public void editProductcategory(Integer id, String name, Integer rowguid) {
+	public void editProductcategory2(Integer id, String name, Integer rowguid) {
 		
 		if(name.isEmpty()) {
 			throw new IllegalArgumentException();
@@ -83,5 +83,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 		save(pc);
 	}
 	
+	public void editProductcategory(Productcategory pc) {
+		Productcategory pcEntity =findById(pc.getProductcategoryid()).get();
+		if(pcEntity ==null) {
+			throw new RuntimeException();
+		}else {
+			pcEntity.setName(pc.getName());
+			pcEntity.setRowguid(pc.getRowguid());
+			save(pcEntity);
+		}
+	}
 	
 }

@@ -75,7 +75,7 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService{
 		productSubcategoryRepository.deleteAll();
 	}
 	
-	public void editProductsubcategory(Integer id, Timestamp modifieddate,  String name, Integer rowguid) {
+	public void editProductsubcategory2(Integer id, Timestamp modifieddate,  String name, Integer rowguid) {
 		if(name.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
@@ -85,5 +85,16 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService{
 		save(psc);
 	}
 	
+	public void editProductsubcategory(Productsubcategory ps) {
+		Productsubcategory productsEntity = findById(ps.getProductsubcategoryid()).get();
+		if(productsEntity==null) {
+			throw new RuntimeException();
+		}else {
+			productsEntity.setName(ps.getName());
+			productsEntity.setRowguid(ps.getRowguid());
+			save(productsEntity);
+		}
+		
+	}
 	
 }

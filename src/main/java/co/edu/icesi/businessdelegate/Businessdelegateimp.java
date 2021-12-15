@@ -12,24 +12,20 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import co.edu.icesi.model.Document;
-import co.edu.icesi.frontmodel.Product;
-import co.edu.icesi.frontmodel.Productcategory;
-import co.edu.icesi.frontmodel.Productsubcategory;
-import co.edu.icesi.model.Productvendor;
-import co.edu.icesi.model.Transactionhistory;
-import co.edu.icesi.frontmodel.Unitmeasure;
+import co.edu.icesi.frontmodel.*;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Component
 public class Businessdelegateimp implements BusinessDelegate {
 
 	private final static String URL = "http://localhost:8080/api";
-	private final static String PRODUCT_URL = URL + "/products/";
+	private final static String PRODUCT_URL = URL + "/products";
 	private final static String PRODUCTCATEGORY_URL = URL + "/categories/";
 	private final static String TRANSACTIONHISTORY_URL = URL + "/transaction-histories/";
 	private final static String DOCUMENT_URL = URL + "/documents/";
 	private final static String PRODUCTVENDORS_URL = URL + "/product-vendors/";
-	private final static String PRODUCTSUBCATEGORY_URL = URL + "/productsubcategories/";
+	private final static String PRODUCTSUBCATEGORY_URL = URL + "/subcategories/";
 	private final static String UNITMEASURE_URL = URL + "/unitmeasures/";
 
 	private RestTemplate restTemplate;
@@ -38,7 +34,7 @@ public class Businessdelegateimp implements BusinessDelegate {
 		this.restTemplate = new RestTemplate();
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
 		messageConverters.add(converter);
 		this.restTemplate.setMessageConverters(messageConverters);
 	}
@@ -65,7 +61,8 @@ public class Businessdelegateimp implements BusinessDelegate {
 
 	public Product saveProduct(Product product) {
 		HttpEntity<Product> request = new HttpEntity<>(product);
-		return restTemplate.postForObject(PRODUCT_URL, request, Product.class);
+		log.info("DATOS DEL PRODUCTO " + product.toString());
+		return restTemplate.postForObject(PRODUCT_URL +"/add", request, Product.class);
 	}
 
 	public void editProduct(Product product) {
@@ -103,12 +100,23 @@ public class Businessdelegateimp implements BusinessDelegate {
 		return Arrays.asList(array);
 	}
 
+
+	public Productsubcategory findByProductsubcategoryId(Integer id) {
+		return restTemplate.getForObject(PRODUCTSUBCATEGORY_URL+id, Productsubcategory.class);
+		
+	}
 	// ==================
 	// UNITMEASURE
 	// ==================
 	public List<Unitmeasure> findAllUnitmeasures() {
 		Unitmeasure[] array = restTemplate.getForObject(UNITMEASURE_URL, Unitmeasure[].class);
 		return Arrays.asList(array);
+		
+	}
+
+	public Unitmeasure findByUnitmeasureId(long id) {
+		return restTemplate.getForObject(UNITMEASURE_URL+id, Unitmeasure.class);
+		
 	}
 
 	// ==================

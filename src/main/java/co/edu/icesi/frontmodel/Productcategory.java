@@ -22,7 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Productcategory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
+	private Integer productsubcategoryid;
+
 	private Integer productcategoryid;
 
 	private Timestamp modifieddate;

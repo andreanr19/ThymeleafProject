@@ -28,5 +28,5 @@ public interface ProductCategoryService {
 
 	public void deleteAll();
 
-	public void editProductcategory(Integer id, String name, Integer rowguid);
+	public void editProductcategory(Productcategory pc);
 }

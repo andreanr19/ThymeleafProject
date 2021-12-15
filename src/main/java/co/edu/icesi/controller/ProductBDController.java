@@ -13,14 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.edu.icesi.businessdelegate.BusinessDelegate;
 import co.edu.icesi.businessdelegate.Businessdelegateimp;
 import co.edu.icesi.model.Add;
 import co.edu.icesi.frontmodel.Product;
-import co.edu.icesi.services.ProductCategoryService;
-import co.edu.icesi.services.ProductService;
-import co.edu.icesi.services.ProductSubcategoryService;
-import co.edu.icesi.services.UnitMeasureService;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
@@ -41,19 +36,19 @@ public class ProductBDController {
 		return "/products/index";
 	}
 
-	//DONE
+	// DONE
 	@GetMapping("/edit/{id}")
 	public String editProduct(Model model, @PathVariable("id") Integer id) {
 		Product product = businessDelegate.findProductById(id);
 
 		model.addAttribute("product", product);
-//		model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
+		model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
 		model.addAttribute("productsubcategories", businessDelegate.findAllProductsubcategories());
 		model.addAttribute("unitmeasures", businessDelegate.findAllUnitmeasures());
 		return "/products/edit";
 	}
 
-	//DONE
+	// DONE
 	@PostMapping("/edit/{id}")
 	public String postEditProduct(@ModelAttribute("product") @Validated(Add.class) Product product,
 			BindingResult result, Model model, @PathVariable("id") long id,
@@ -66,7 +61,7 @@ public class ProductBDController {
 			}
 			if (result.hasErrors()) {
 
-//				model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
+				model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
 				model.addAttribute("productsubcategories", businessDelegate.findAllProductsubcategories());
 				model.addAttribute("unitmeasures", businessDelegate.findAllUnitmeasures());
 				return "products/edit";
@@ -80,7 +75,7 @@ public class ProductBDController {
 	@GetMapping("/add")
 	public String addProduct(Model model, @ModelAttribute("product") Product product) {
 
-//		model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
+		model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
 		model.addAttribute("productsubcategories", businessDelegate.findAllProductsubcategories());
 		model.addAttribute("unitmeasures", businessDelegate.findAllUnitmeasures());
 
@@ -89,13 +84,14 @@ public class ProductBDController {
 
 	// DONE
 	@PostMapping("/add")
-	public String addProduct(@ModelAttribute("product") @Validated(Add.class) Product product, BindingResult result,
-			@RequestParam(value = "action", required = true) String action, Model model) {
+	public String addProduct(@ModelAttribute("product") @Validated Product product, BindingResult result,
+			Model model, @RequestParam(value = "action", required = true) String action) {
+		log.info("DATOS DEL PRODUCTO " + product.toString());
 
 		if (!action.equals("Cancel")) {
 			if (result.hasErrors()) {
 				model.addAttribute("product", product);
-//				model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
+				model.addAttribute("productcategories", businessDelegate.findAllProductcategories());
 				model.addAttribute("productsubcategories", businessDelegate.findAllProductsubcategories());
 				model.addAttribute("unitmeasures", businessDelegate.findAllUnitmeasures());
 				return "/products/add";
@@ -106,7 +102,7 @@ public class ProductBDController {
 		return "redirect:/products";
 	}
 
-	//DONE
+	// DONE
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		Product product = businessDelegate.findProductById(id);
@@ -115,7 +111,7 @@ public class ProductBDController {
 		return "products/index";
 	}
 
-	//DONE
+	// DONE
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") Integer id) {
 		Product product = businessDelegate.findProductById(id);

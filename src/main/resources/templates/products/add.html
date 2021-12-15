@@ -20,38 +20,38 @@
     <div class="container my-5">
         <h2>New Product</h2>
         <div>
-            <form class="container my-5" action="#" th:action="#{/products/add}" th:object="${product}" method="post">
+            <form class="container my-5" action="#" th:action="#{/products/add}" th:object="${product}" method="POST">
                 <div class="form-group col-md-6">
                     <label for="productsubcategory"  class="col-form-label">Product Subcategory</label>
-                    <select id="productsubcategory" th:field="*{productsubcategory}">
+                    <select id="productsubcategory" th:field="*{productsubcategoryid}">
                         <option
                                 th:each="prodsub : ${productsubcategories}"
                                 th:value="${prodsub.productsubcategoryid}"
-                                th:text="${prodsub.productsubcategoryid + ': ' + prodsub.productsubcategoryid + ' ' + prodsub.name}"
-                                th:selected="${product.productsubcategory==prodsub}">
+                                th:text="${prodsub.name}"
+                                th:attrappend="selected=${product.productsubcategory != null and product.productsubcategory.productsubcategoryid == prodsub.productsubcategoryid}?'selected'">
                         </option>
                     </select>
                     <span th:if="${#fields.hasErrors('productsubcategory')}" th:errors="*{productsubcategory}" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="productcategory"  class="col-form-label">Product category</label>
-                    <select id="productcategory" th:field="*{productsubcategory.productcategory}">
+                    <select id="productcategory" th:field="*{productcategoryid}">
                         <option
                                 th:each="prodcat : ${productcategories}"
                                 th:value="${prodcat.productcategoryid}"
-                                th:text="${prodcat.productcategoryid + ': ' + prodcat.name}"
-                                th:selected="${product.productsubcategory.productcategory==prodcat}">
+                                th:text="${prodcat.name}"
+                                th:attrappend="selected=${product.productsubcategory != null and product.productsubcategory.productcategory.productcategoryid == prodcat.productcategoryid}?'selected'">
                         </option>
                     </select>
                     <span th:if="${#fields.hasErrors('productsubcategory.productcategory')}" th:errors="*{productsubcategory.productcategory}" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="unitmeasure"  class="col-form-label">Unit measure</label>
-                <select id="unitmeasure" th:field="*{unitmeasure1}">
+                <select id="unitmeasure" th:field="*{unitmeasurecode}">
                     <option th:each="um : ${unitmeasures}"
                             th:value="${um.unitmeasurecode}"
                             th:text="${um.unitmeasurecode + ': ' + um.name}"
-                            th:selected="${product.unitmeasure1==um}">
+                            th:attrappend="selected=${product.unitmeasure1 != null and product.unitmeasure1.unitmeasurecode==um.unitmeasurecode}?'selected'">
                     </option>
                 </select>
                 <span th:if="${#fields.hasErrors('unitmeasure1')}" th:errors="*{unitmeasure1}" class="text-danger"></span>
